@@ -46,7 +46,7 @@ public class Node
     // ---------------------------------------------
     public override string ToString()
     {
-        return x + ", " + y;
+        return x + ", " + y + ": " +isWalkable;
     }
 
 }

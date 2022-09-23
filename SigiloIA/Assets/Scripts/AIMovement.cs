@@ -6,6 +6,7 @@ public class AIMovement : MonoBehaviour
 {
 
     public float speed =  10f;                              // Velocidad de la IA
+    public float rotationSpeed = 0.5f;                      // Velocidad de rotación de la IA
 
     private int currentPathIndex;                           // Indice actual del camino
     private Vector3 targetWorldPosition;                         // Destino de la IA
@@ -36,6 +37,10 @@ public class AIMovement : MonoBehaviour
             // Actualizamos la posicion de la IA
             transform.position = transform.position + moveDir * speed * Time.deltaTime;
 
+            // Rotamos hacia la posicion correcta
+            Quaternion lookRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed);
+
             // Comprobamos si hemos llegado al punto final
             if (Vector3.Distance(transform.position, targetWorldPosition) < 1f)
             {
@@ -61,6 +66,10 @@ public class AIMovement : MonoBehaviour
 
                 // Actualizamos la posicion de la IA
                 transform.position = transform.position + moveDir * speed * Time.deltaTime;
+
+                // Rotamos hacia la posicion correcta
+                Quaternion lookRotation = Quaternion.LookRotation(moveDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed);
 
             }
             else

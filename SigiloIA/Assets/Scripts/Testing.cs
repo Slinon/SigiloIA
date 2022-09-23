@@ -59,6 +59,7 @@ public class Testing : MonoBehaviour
 
             // Guardamos la posicion
             worldPosition = hitData.point;
+            worldPosition.y = 1f;
 
         }
         else
