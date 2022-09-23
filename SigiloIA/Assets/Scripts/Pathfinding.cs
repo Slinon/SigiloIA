@@ -22,7 +22,7 @@ public class Pathfinding
 
         // Establecemos la veriables del constructor
         Instance = this;
-        grid = new Grid<Node>(width, height, 1f, Vector3.zero, 
+        grid = new Grid<Node>(width, height, 10f, Vector3.zero, 
             (Grid<Node> grid, int x, int y) => new Node(grid, x, y));
 
     }

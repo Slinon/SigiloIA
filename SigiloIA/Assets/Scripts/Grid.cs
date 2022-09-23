@@ -52,7 +52,7 @@ public class Grid<TGridObject>
         }
 
         // Booleano para mostrar el grid
-        bool showDebug = false;
+        bool showDebug = true;
 
         // Comprobammos si el odo debug está activo
         if(showDebug)

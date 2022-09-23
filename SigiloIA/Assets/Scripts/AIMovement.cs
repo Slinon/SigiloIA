@@ -39,7 +39,6 @@ public class AIMovement : MonoBehaviour
             // Comprobamos si hemos llegado al punto final
             if (Vector3.Distance(transform.position, targetWorldPosition) < 1f)
             {
-                Debug.Log("Final");
 
                 // Paramos el movimiento
                 StopMoving();

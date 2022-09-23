@@ -14,7 +14,7 @@ public class Testing : MonoBehaviour
     {
 
         aIMovement = GetComponent<AIMovement>();
-        Pathfinding.Instance = new Pathfinding(100, 100);
+        Pathfinding.Instance = new Pathfinding(10, 10);
         
     }
 
