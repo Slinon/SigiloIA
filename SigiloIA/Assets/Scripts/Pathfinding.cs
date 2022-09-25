@@ -25,6 +25,8 @@ public class Pathfinding
         grid = new Grid<Node>(width, height, 10f, Vector3.zero, 
             (Grid<Node> grid, int x, int y) => new Node(grid, x, y));
 
+        grid.GetGridObject(2, 3).isWalkable = false;
+
     }
 
     // @IGM ----------------------------------------------
@@ -42,6 +44,18 @@ public class Pathfinding
     // -----------------------------------------------------------------
     public List<Vector3> FindPath(Vector3 startWorldPosition, Vector3 endWorldPosition)
     {
+
+        // Comprobamos si el punto está fuera de la malla
+        if (endWorldPosition.x < grid.GetOriginPosition().x 
+            || endWorldPosition.x > grid.GetWidth() * grid.GetCellSize()
+            || endWorldPosition.z < grid.GetOriginPosition().z
+            || endWorldPosition.z > grid.GetHeight() * grid.GetCellSize())
+        {
+
+            // No hay camino valido
+            return null;
+
+        }
 
         // Buscamos las posiciones en la malla
         grid.GetXY(startWorldPosition, out int startX, out int startY);
@@ -91,6 +105,15 @@ public class Pathfinding
         // Creamos el primer y ultimo nodo
         Node startNode = grid.GetGridObject(startX, startY);
         Node endNode = grid.GetGridObject(endX, endY);
+
+        // Comprobamos que el nodo no es alcanzable
+        if (!endNode.isWalkable)
+        {
+
+            // NO hay camino valido
+            return null;
+
+        }
 
         // Inicializamos las listas
         openList = new List<Node> { startNode };

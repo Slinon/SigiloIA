@@ -52,7 +52,7 @@ public class Grid<TGridObject>
         }
 
         // Booleano para mostrar el grid
-        bool showDebug = true;
+        bool showDebug = false;
 
         // Comprobammos si el odo debug está activo
         if(showDebug)
@@ -257,6 +257,16 @@ public class Grid<TGridObject>
     {
 
         return cellSize;
+
+    }
+
+    // @IGM -------------------------------------------------
+    // Función que deviuelve el punto donde empieza la malla.
+    // ------------------------------------------------------SS
+    public Vector3 GetOriginPosition()
+    {
+
+        return originPosition;
 
     }
 

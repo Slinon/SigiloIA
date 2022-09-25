@@ -39,7 +39,7 @@ public class AIMovement : MonoBehaviour
 
             // Rotamos hacia la posicion correcta
             Quaternion lookRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
             // Comprobamos si hemos llegado al punto final
             if (Vector3.Distance(transform.position, targetWorldPosition) < 1f)
@@ -69,7 +69,7 @@ public class AIMovement : MonoBehaviour
 
                 // Rotamos hacia la posicion correcta
                 Quaternion lookRotation = Quaternion.LookRotation(moveDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
             }
             else
@@ -90,16 +90,15 @@ public class AIMovement : MonoBehaviour
     public void SetTargetPosition(Vector3 targetPosition)
     {
 
-        // Restablecemos el índice y el destino
-        currentPathIndex = 0;
-        targetWorldPosition = targetPosition;
-
         // Calculamos el nuevo camino
         pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), targetPosition);
 
-        // Debug
         if (pathVectorList != null)
         {
+
+            // Restablecemos el índice y el destino
+            currentPathIndex = 0;
+            targetWorldPosition = targetPosition;
 
             for (int i = 0; i < pathVectorList.Count - 1; i++)
             {
@@ -109,7 +108,6 @@ public class AIMovement : MonoBehaviour
             }
 
         }
-        // Debug end
 
     }
 
