@@ -48,6 +48,14 @@ public class Pathfinding
             (Grid<Node> grid, int x, int y) => new Node(grid, x, y));
 
         grid.GetGridObject(2, 3).isWalkable = false;
+        grid.GetGridObject(5, 5).isWalkable = false;
+        grid.GetGridObject(7, 6).isWalkable = false;
+        grid.GetGridObject(4, 2).isWalkable = false;
+        grid.GetGridObject(2, 8).isWalkable = false;
+        grid.GetGridObject(7, 8).isWalkable = false;
+        grid.GetGridObject(8, 2).isWalkable = false;
+        grid.GetGridObject(1, 8).isWalkable = false;
+        grid.GetGridObject(2, 9).isWalkable = false;
 
     }
 
@@ -203,7 +211,7 @@ public class Pathfinding
                 }
 
                 // Comprobamos si el nodo vecino no es caminable
-                if(!neighbourNode.isWalkable)
+                if (!neighbourNode.isWalkable)
                 {
 
                     // Lo añadimos a la lista de nodos cerrados
@@ -282,7 +290,7 @@ public class Pathfinding
         }
 
         // Comprobamos si hay nodo a la derecha
-        if (currentNode.x - 1 < grid.GetWidth())
+        if (currentNode.x + 1 < grid.GetWidth())
         {
 
             // Añadimos el nodo
@@ -297,7 +305,7 @@ public class Pathfinding
 
             }
 
-            // Comrpobamos si hay nodo a la izquierda arriba
+            // Comrpobamos si hay nodo a la derecha arriba
             if (currentNode.y + 1 < grid.GetHeight())
             {
 
@@ -318,7 +326,7 @@ public class Pathfinding
         }
 
         // Comprobamos si hay nodo arriba
-        if (currentNode.y - 1 < grid.GetHeight())
+        if (currentNode.y + 1 < grid.GetHeight())
         {
 
             // Añadimos el nodo
