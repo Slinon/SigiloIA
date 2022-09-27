@@ -91,7 +91,7 @@ public class AIMovement : MonoBehaviour
     {
 
         // Calculamos el nuevo camino
-        pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), targetPosition);
+        pathVectorList = Pathfinding.GetInstance().FindPath(GetPosition(), targetPosition);
 
         if (pathVectorList != null)
         {

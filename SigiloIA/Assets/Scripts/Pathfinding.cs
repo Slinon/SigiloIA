@@ -7,8 +7,31 @@ public class Pathfinding
 
     const int MOVE_STRAIGHT_COST = 10;                  // Constante de coste recto
     const int MOVE_DIAGONAL_COST = 14;                  // Constante de coste en diagonal
+    
+    // @IGM -----------------------------------------------
+    // Patrón de clase Singleton para la clase pathfinding.
+    // ----------------------------------------------------
+    public static Pathfinding Instance { get; private set; }
 
-    public static Pathfinding Instance { get; set; }
+    // @IGM ------------------------------------------------------------------
+    // Metodo para crear el Singleton al principio del juego sino está creado.
+    // -----------------------------------------------------------------------
+    public static Pathfinding GetInstance()
+    {
+
+        // Comprobamos si existe una instancia de la clase
+        if (Instance == null)
+        {
+
+            // Destruimos la clase
+            Instance = new Pathfinding(10, 10);
+
+
+        }
+
+        return Instance;
+
+    }
 
     private Grid<Node> grid;                            // Malla de nodos
     private List<Node> openList;                        // Lista de nodos visitables
@@ -17,11 +40,10 @@ public class Pathfinding
     // @IGM -------------------
     // Constructor de la clase.
     // ------------------------
-    public Pathfinding(int width, int height)
+    private Pathfinding(int width, int height)
     {
 
-        // Establecemos la veriables del constructor
-        Instance = this;
+        
         grid = new Grid<Node>(width, height, 10f, Vector3.zero, 
             (Grid<Node> grid, int x, int y) => new Node(grid, x, y));
 
