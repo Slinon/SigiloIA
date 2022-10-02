@@ -18,8 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput; // Acciones del jugador del nuevo Input System
     private Transform camaraTransform;
 
+    private PlayerController playerController;
+
     private InputAction moveAction; // Acción de moverse
     private InputAction sprintAction; // Acción de correr
+    private InputAction transformAction; // Acción de transformarse
 
     private void Awake()
     {
@@ -28,17 +31,38 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
 
+        playerController = GetComponent<PlayerController>();
+
         camaraTransform = Camera.main.transform; // Inicializa Transform de la cámara
 
         moveAction = playerInput.actions["Move"]; // Extrae la acción de moverse del InputSystem del jugador (Move)
         sprintAction = playerInput.actions["Sprint"]; // Extrae la acción de correr del InputSystem del jugador (Sprint)
+        transformAction = playerInput.actions["Transform"]; // Extrae la acción de transformarse del InputSystem del jugador (Transform)
 
         Cursor.lockState = CursorLockMode.Locked; // Oculta y bloquea el cursor en el centro de la pantalla
     }
 
     void Update()
     {
-        MovePlayer();
+        if (playerController.CheckClosestObject() != null)
+        {
+            playerController.ShowTButtonText(true);
+
+            if (transformAction.IsPressed())
+            {
+                playerController.TranformObject();
+            }
+        }
+        else
+        {
+            playerController.ShowTButtonText(false);
+        }
+        
+        if (moveAction.IsPressed())
+        {
+            playerController.TransformPlayer();
+            MovePlayer();
+        } 
     }
 
     // @EMF -----------------------
