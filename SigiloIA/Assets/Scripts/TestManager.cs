@@ -9,7 +9,6 @@ public class TestManager : MonoBehaviour
     // -----------------------------
 
     [SerializeField] private int securityLevel = 0;
-    private bool firstTimeSpotted = true;
     [SerializeField] Material[] spotlightMaterials;
 
     // @GRG ----------------------------------------
@@ -18,12 +17,8 @@ public class TestManager : MonoBehaviour
     public void PlayerSpotted()
     {
         securityLevel += 1;
-
-        if (firstTimeSpotted)
-        {
-            firstTimeSpotted = false;
-            UpdateCameras();
-        }    
+        UpdateCameras();
+ 
     }
 
     // @GRG ------------------------------
@@ -31,11 +26,17 @@ public class TestManager : MonoBehaviour
     // -----------------------------------
     void UpdateCameras()
     {
-        SecurityCamera[] securityCameras = FindObjectsOfType<SecurityCamera>();                     //Buscar todas las cámaras de seguridad
+        SecurityCamera[] securityCameras = FindObjectsOfType<SecurityCamera>();             //Buscar todas las cámaras de seguridad
 
-        foreach (SecurityCamera securityCamera in securityCameras)                                  //Cambiar el color del foco.
+        foreach (SecurityCamera securityCamera in securityCameras)                          
         {
-            securityCamera.thisCameraSpotlight.GetComponent<MeshRenderer>().material = spotlightMaterials[1];
+            if (securityLevel < spotlightMaterials.Length)
+            {
+                securityCamera.thisCameraSpotlight.GetComponent<MeshRenderer>().material 
+                    = spotlightMaterials[securityLevel];                                    //Cambiar el color del foco
+
+                //securityCamera.rotationSpeed *= 1.5f;                                       //Aumentar la velocidad de rotación
+            }     
         }
     }
 }

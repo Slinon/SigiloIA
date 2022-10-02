@@ -15,7 +15,6 @@ public class SecurityCamera : MonoBehaviour
     private void Start()
     {
         originalAngle = gameObject.transform.eulerAngles.y;
-        Debug.Log(originalAngle);
     }
 
     private void Update()
@@ -28,7 +27,7 @@ public class SecurityCamera : MonoBehaviour
     // -----------------------------
     void RotateCamera()
     {
-        transform.localEulerAngles = new Vector3(0, Mathf.PingPong(Time.time * rotationSpeed, rotationAngle) - (originalAngle + rotationAngle / 2), 0);
+        transform.localEulerAngles = new Vector3(0, Mathf.PingPong(Time.time * rotationSpeed, rotationAngle) + (originalAngle - rotationAngle / 2), 0);
     }
 
 }
