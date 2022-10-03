@@ -112,10 +112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930ad4855fbcb804ab373f89aac2be58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1312846818131573718}
+  playerController: {fileID: 1312846818131573718}
+  player: {fileID: 1312846818131573715}
   clips:
   - {fileID: 8300000, guid: 25524af84cb3b444b956f44f5d1f26cb, type: 3}
   - {fileID: 8300000, guid: 48df59970a919ea4a8a78d2fea1d4f5d, type: 3}
+  Radius: 4
+  EnemyLayer: 9
 --- !u!82 &1438608594387164564
 AudioSource:
   m_ObjectHideFlags: 0
