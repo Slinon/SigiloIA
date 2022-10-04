@@ -47,15 +47,18 @@ public class Pathfinding
         grid = new Grid<Node>(width, height, 10f, Vector3.zero, 
             (Grid<Node> grid, int x, int y) => new Node(grid, x, y));
 
+        grid.GetGridObject(1, 3).isWalkable = false;
         grid.GetGridObject(2, 3).isWalkable = false;
-        grid.GetGridObject(5, 5).isWalkable = false;
+        grid.GetGridObject(3, 3).isWalkable = false;
+        grid.GetGridObject(6, 3).isWalkable = false;
+        grid.GetGridObject(7, 3).isWalkable = false;
+        grid.GetGridObject(8, 3).isWalkable = false;
+        grid.GetGridObject(3, 6).isWalkable = false;
+        grid.GetGridObject(3, 7).isWalkable = false;
+        grid.GetGridObject(3, 8).isWalkable = false;
         grid.GetGridObject(7, 6).isWalkable = false;
-        grid.GetGridObject(4, 2).isWalkable = false;
-        grid.GetGridObject(2, 8).isWalkable = false;
+        grid.GetGridObject(7, 7).isWalkable = false;
         grid.GetGridObject(7, 8).isWalkable = false;
-        grid.GetGridObject(8, 2).isWalkable = false;
-        grid.GetGridObject(1, 8).isWalkable = false;
-        grid.GetGridObject(2, 9).isWalkable = false;
 
     }
 

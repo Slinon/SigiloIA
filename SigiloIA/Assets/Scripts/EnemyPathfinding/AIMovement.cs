@@ -58,7 +58,7 @@ public class AIMovement : MonoBehaviour
             Vector3 targetPosition = pathVectorList[currentPathIndex];
 
             // Comrpobamos si aun no hemos llegado a la posición marcada
-            if (Vector3.Distance(transform.position, targetPosition) > 1f)
+            if (Vector3.Distance(transform.position, targetPosition) > 0.3f)
             {
 
                 // Calculamos la dirección a la que se tiene que over la IA
