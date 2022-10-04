@@ -100,12 +100,12 @@ public class AIMovement : MonoBehaviour
             currentPathIndex = 0;
             targetWorldPosition = targetPosition;
 
-            for (int i = 0; i < pathVectorList.Count - 1; i++)
+            /*for (int i = 0; i < pathVectorList.Count - 1; i++)
             {
 
                 Debug.DrawLine(pathVectorList[i], pathVectorList[i + 1], Color.green, 10f);
 
-            }
+            }*/
 
         }
 

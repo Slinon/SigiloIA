@@ -59,6 +59,9 @@ public class Pathfinding
         grid.GetGridObject(7, 6).isWalkable = false;
         grid.GetGridObject(7, 7).isWalkable = false;
         grid.GetGridObject(7, 8).isWalkable = false;
+        grid.GetGridObject(3, 1).isWalkable = false;
+        grid.GetGridObject(5, 2).isWalkable = false;
+        grid.GetGridObject(5, 1).isWalkable = false;
 
     }
 
