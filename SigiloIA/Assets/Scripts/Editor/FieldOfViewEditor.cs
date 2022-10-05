@@ -16,15 +16,15 @@ public class FieldOfViewEditor : Editor
         // Dibujamos un círculo alrededor para mostrar el radio
         FieldOfView fow = (FieldOfView)target;
         Handles.color = Color.white;
-        Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.viewRadious);
+        Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.viewRadius);
 
         // Recuperamos la direccion de los angulos laterales
         Vector3 viewAngleA = fow.DirFromAngle(-fow.viewAngle / 2, false);
         Vector3 viewAngleB = fow.DirFromAngle(fow.viewAngle / 2, false);
 
         // Dibujamos las lineas
-        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleA * fow.viewRadious);
-        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.viewRadious);
+        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleA * fow.viewRadius);
+        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.viewRadius);
 
         // Comprobamos si se tiene visual con el jugador
         if (fow.player != null)

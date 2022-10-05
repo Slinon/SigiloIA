@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class Node : MonoBehaviour
 {
 
-    private Grid<Node> grid;                    // Malla de nodos
+    private Grid<Node> grid;                   // Malla de nodos
+    [HideInInspector]
     public int x;                              // Posicion x del nodo
+    [HideInInspector]
     public int y;                              // Posicion y del nodo
 
+    [HideInInspector]
     public int gCost;                           // Coste al nodo inicial
+    [HideInInspector]
     public int hCost;                           // Coste al nodo final
+    [HideInInspector]
     public int fCost;                           // Suma de los dos costes
 
     public bool isWalkable;                     // Booleano para saber si se puede ir por el nodo
+    [HideInInspector]
     public Node cameFromNode;                   // Nodo del que venimos
 
     // @IGM -------------------
