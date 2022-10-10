@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class SecurityCamera : MonoBehaviour
 {
-    [SerializeField] float rotationAngle;                   //Angulo de giro de la cámara
-    public float rotationSpeed;                             //Velocidad de giro de la cámara
-    private float originalAngle;
-   
-
-    public GameObject thisCameraSpotlight;                  //Foco de la cámara (area de detección)
-
-
-    private void Start()
-    {
-        originalAngle = gameObject.transform.eulerAngles.y;
-    }
+    [SerializeField] float rotationAngle;           //Angulo de giro de la cámara
+    public float rotationSpeed;                     //Velocidad de giro de la cámara
+    public int communicationRange;                  //Alcance para enviar una señal a otros enemigos
 
     private void Update()
     {
@@ -27,7 +18,30 @@ public class SecurityCamera : MonoBehaviour
     // -----------------------------
     void RotateCamera()
     {
-        transform.localEulerAngles = new Vector3(0, Mathf.PingPong(Time.time * rotationSpeed, rotationAngle) + (originalAngle - rotationAngle / 2), 0);
+        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.Self);
     }
 
+    // @GRG -----------------------------------------------------
+    // Metodo para enviar una señal a todos los enemigos en rango
+    // ----------------------------------------------------------
+    public void PlayerSpotted()
+    {
+        Debug.Log("Player spotted, communicating with nearby enemies");
+
+        //Se comunica con todos los enemigos (layer 9 = enemies) en un rango determinado
+        Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 9);
+        foreach (Collider enemy in enemiesNearby)
+        {
+            Debug.Log("Enemy nearby found");
+        }
+    }
+
+    // @GRG ------------------------
+    // Debug: communicationRange
+    // -----------------------------
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, communicationRange);
+    }
 }
