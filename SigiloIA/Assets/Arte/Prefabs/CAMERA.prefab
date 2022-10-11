@@ -78,9 +78,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ac660cec7b0ac43a41c0fc0eb948bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: "La c\xE1mara har\xE1 un barrido de (RotationAngle), tomando su posici\xF3n
+    inicial como \"centro\" del barrido. Si el jugador es detectado, avisar\xE1 a
+    los dem\xE1s enemigos en rango (CommunicationRange)."
   rotationAngle: 180
-  rotationSpeed: 20
-  thisCameraSpotlight: {fileID: 2340442721234129999}
+  rotationSpeed: 30
+  communicationRange: 10
 --- !u!1001 &3223316815593476619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -162,6 +165,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3223316814779420432}
     m_Modifications:
+    - target: {fileID: 5154000145912470623, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
+      propertyPath: thisSpotlightCamera
+      value: 
+      objectReference: {fileID: 3223316814779420433}
     - target: {fileID: 7301092602671593211, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_Name
       value: spotlight
@@ -184,19 +191,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6830127
+      value: 0.6903456
       objectReference: {fileID: 0}
     - target: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18301266
+      value: 0.15304585
       objectReference: {fileID: 0}
     - target: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6830127
+      value: -0.6903456
       objectReference: {fileID: 0}
     - target: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.18301266
+      value: -0.15304585
       objectReference: {fileID: 0}
     - target: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -208,15 +215,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -30
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
---- !u!1 &2340442721234129999 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7301092602671593211, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
-  m_PrefabInstance: {fileID: 4983335565299016372}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3112335808829279989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7933479586678484033, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
