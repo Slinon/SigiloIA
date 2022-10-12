@@ -81,7 +81,7 @@ public class SecurityCamera : MonoBehaviour
         Debug.Log("Player spotted, communicating with nearby enemies");
 
         //Se comunica con todos los enemigos (layer 9 = enemies) en un rango determinado
-        Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 9);
+        Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 1<<9);
 
         foreach (Collider enemy in enemiesNearby)
         {
