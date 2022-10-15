@@ -8,11 +8,12 @@ public class AIMovement : MonoBehaviour
     const float PATH_UPDATE_MOVE_THRESHOLD = 0.5f;      // Constante de margen de movimiento del target
 
     [HideInInspector]
-    public Transform target;                            // Objetivo del movimiento
+    public Vector3 target;                              // Objetivo del movimiento
+    public bool displayPathGizmos;                      // Booleano para mostrar el camino
     public float speed;                                 // Velocidad de movimiento
     public float turnSpeed;                             // Velocidad de rotacion
     public float turnDistance;                          // Distancia de volteado
-
+    
     private Path path;                                  // Camino a seguir
 
     // @IGM -----------------------------------------
@@ -58,11 +59,11 @@ public class AIMovement : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
 
         }
-        PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
+        PathRequestManager.RequestPath(new PathRequest(transform.position, target, OnPathFound));
 
         // Asignamos las variables
         float sqrMoveThreshold = PATH_UPDATE_MOVE_THRESHOLD * PATH_UPDATE_MOVE_THRESHOLD;
-        Vector3 targetPosOld = target.position;
+        Vector3 targetPosOld = target;
 
         while (true)
         {
@@ -71,14 +72,14 @@ public class AIMovement : MonoBehaviour
             yield return new WaitForSeconds(MIN_PATH_UPDATE_TIME);
 
             // Comprobamos si la posicion del target ha cambiado lo suficiente
-            if ((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+            if ((target - targetPosOld).sqrMagnitude > sqrMoveThreshold)
             {
 
                 // Pedimos un nuevo camino
-                PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
+                PathRequestManager.RequestPath(new PathRequest(transform.position, target, OnPathFound));
 
                 // Actualizamos la posicion del target
-                targetPosOld = target.position;
+                targetPosOld = target;
 
             }
 
@@ -154,7 +155,7 @@ public class AIMovement : MonoBehaviour
     {
 
         // Comprobamos que existe camino
-        if (path != null)
+        if (path != null && displayPathGizmos)
         {
 
             //Dibujamos el camino

@@ -328,7 +328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7d3bf22bcc96143bf2c0dac5670c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
+  displayPathGizmos: 0
   speed: 5
   turnSpeed: 5
   turnDistance: 0.1
@@ -344,13 +345,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e829dd5df47684aa5e823a5ab664ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoppingDistance: 2
+  state: 0
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  stoppingDistance: 2
-  state: 0
+  timeToSearch: 2
+  patrolColor: {r: 1, g: 1, b: 1, a: 0.45490196}
+  timeToChase: 1
+  searchColor: {r: 1, g: 0.96448624, b: 0, a: 0.49803922}
+  timeSearching: 10
+  chaseColor: {r: 1, g: 0, b: 0, a: 0.49803922}
+  player: {fileID: 0}
 --- !u!114 &4160241629714725115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,8 +371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1659d0b4911f314687d4fdb50d0cefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 20
-  viewAngle: 100
+  viewRadius: 30
+  viewAngle: 130
   player: {fileID: 0}
   playerMask:
     serializedVersion: 2

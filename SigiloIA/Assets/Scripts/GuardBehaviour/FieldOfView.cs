@@ -56,10 +56,12 @@ public class FieldOfView : MonoBehaviour
     public float viewRadius;               // Radio de vision del enemigo
     [Range(0, 360)]
     public float viewAngle;                 // Angulo de vision del enemigo
+
     [HideInInspector]
     public Transform player;                // Posición del jugador
     public LayerMask playerMask;            // Capa del jugador
     public LayerMask obstacleMask;          // Capa de los obstaculos
+
     [Header("Malla")]
     public MeshFilter viewMeshFilter;       // Filtro de malla de la vista del enemigo
     public MeshRenderer meshRenderer;       // Malla de renderizado del campo de vision
