@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class SecuirtySpotlight : MonoBehaviour
 {
+    public GameObject enemy;                        //Enemigo "padre" de este foco
+    public enum State { Patrol, Search, Chase };    //Estado de este enemigo
+
     private bool playerInSight = false;             //booleano que indica si el jugador está en el foco
     public float timeToSpot = 2f;                   //tiempo que tarda en detectar al jugador
     public float detectionMeter = 0;                //"Barra" de detección
 
     private MeshRenderer meshRenderer;              //Malla del foco
-    public GameObject thisSpotlightCamera;          //cámara asociada a este foco
+
+    public Color patrolColor;                       //Color cuando el enemigo está modo patrulla
+    public Color searchColor;                       //Color cuando el enemigo está modo busqueda
+    public Color chaseColor;                        //Color cuando el enemigo está modo persecución
 
     //DebugStuff
     bool sendSignal = true;
@@ -19,20 +25,15 @@ public class SecuirtySpotlight : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
+    // @GRG --------------------------------------
+    // Update del foco, lógica de cambio de color
+    // y cambio de estado del enemigo
+    // -------------------------------------------
+
     private void Update()
     {
-        FillDetectionMeter();               //Llenar la barra si el jugador está siendo detectado
-        ChangeColor();                      //Cambiar el color según el estado de la barra
+        if               
 
-        if (detectionMeter > timeToSpot)    //Si se llena la barra...
-        {
-            if (sendSignal)
-            {
-                //Lá cámara a la que corresponde el foco enviará una señal
-                thisSpotlightCamera.GetComponent<SecurityCamera>().PlayerSpotted(); 
-                sendSignal = false;
-            }           
-        }
     }
 
     // @GRG -----------------------------------------------------

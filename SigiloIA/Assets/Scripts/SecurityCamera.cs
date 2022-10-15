@@ -10,8 +10,9 @@ public class SecurityCamera : MonoBehaviour
     public float rotationSpeed;                             //Velocidad de giro de la cámara
     public int communicationRange;                          //Alcance para enviar una señal a otros enemigos
 
-    private float from;
-    private float to;
+    private float from;                                     //Angulo inicial
+    private float to;                                       //Angulo final
+
 
     private void Start()
     {
