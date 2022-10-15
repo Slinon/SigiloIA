@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3223316814779420432}
-  - component: {fileID: 3223316814779420435}
+  - component: {fileID: 9213902838461301982}
   m_Layer: 0
   m_Name: CAMERA
   m_TagString: Untagged
@@ -66,7 +66,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3223316814779420435
+--- !u!114 &9213902838461301982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,15 +75,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3223316814779420433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ac660cec7b0ac43a41c0fc0eb948bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 00ed5b15c18ddd34d886f545d1f2dd75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   description: "La c\xE1mara har\xE1 un barrido de (RotationAngle), tomando su posici\xF3n
     inicial como \"centro\" del barrido. Si el jugador es detectado, avisar\xE1 a
     los dem\xE1s enemigos en rango (CommunicationRange)."
+  state: 0
   rotationAngle: 180
-  rotationSpeed: 30
-  communicationRange: 10
+  rotationSpeed: 20
+  communicationRange: 20
 --- !u!1001 &3223316815593476619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,6 +166,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3223316814779420432}
     m_Modifications:
+    - target: {fileID: 5154000145912470623, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
+      propertyPath: timeToSpot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5154000145912470623, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: thisSpotlightCamera
       value: 

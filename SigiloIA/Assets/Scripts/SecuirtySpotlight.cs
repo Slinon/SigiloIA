@@ -13,12 +13,12 @@ public class SecuirtySpotlight : MonoBehaviour
 
     private MeshRenderer meshRenderer;              //Malla del foco
 
-    public Color patrolColor;                       //Color cuando el enemigo está modo patrulla
+    public Color patrolColor;                      
     public Color searchColor;                       //Color cuando el enemigo está modo busqueda
     public Color chaseColor;                        //Color cuando el enemigo está modo persecución
 
     //DebugStuff
-    bool sendSignal = true;
+    //bool sendSignal = true;
 
     private void Start()
     {
@@ -31,8 +31,7 @@ public class SecuirtySpotlight : MonoBehaviour
     // -------------------------------------------
 
     private void Update()
-    {
-        if               
+    {       
 
     }
 
