@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 311542377}
   - component: {fileID: 311542376}
   - component: {fileID: 311542375}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ball
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1894718272}
   - component: {fileID: 1894718271}
   - component: {fileID: 1894718270}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Box
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 1931163708}
   - component: {fileID: 1931163707}
   - component: {fileID: 1931163706}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stick
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 5617656951687941659}
   - component: {fileID: 1438608594387164564}
   - component: {fileID: 556636538}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 1312846818254328285}
   - component: {fileID: 1312846818254328256}
   - component: {fileID: 1312846818254328259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 1312846818389620202}
   - component: {fileID: 1312846818389620201}
   - component: {fileID: 1312846818389620200}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}

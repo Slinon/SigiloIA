@@ -3,270 +3,193 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid<TGridObject>
+public class Grid : MonoBehaviour
 {
 
-    // @IGM -----------------------------------------------------------------
-    // Evento para saber si se ha cambiado el valor de una celda de la malla.
-    // ----------------------------------------------------------------------
-    public event EventHandler<OnGridObjectChangedEventArgs> OnGridObjectChanged;
-    public class OnGridObjectChangedEventArgs : EventArgs
+    public bool displayGridGizmos;                  // Booleano para mostrar solo el camino
+    public LayerMask unwalkableMask;                // Capa de objetos por los que no se puede ir
+    public Vector2 gridWorldSize;                   // Tamaño de la malla
+    public float nodeRadius;                        // Tamaño de los nodos
+
+    private Node[,] grid;                           // Malla de nodos
+    private float nodeDiameter;                     // Diametro de los nodos
+    private int gridSizeX, gridSizeY;               // Tamaño de la malla
+
+    // @IGM ----------------------------------------------------
+    // Awake is called when the script instance is being loaded.
+    // ---------------------------------------------------------
+    private void Awake()
     {
-        public int x;
-        public int y;
+
+        // Calculamos el diametro de los nodos
+        nodeDiameter = nodeRadius * 2;
+
+        // Calculamos cuantos nodos caben en la malla
+        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+
+        // Creamos la malla
+        CreateGrid();
+
     }
 
-    private int width;                      // Ancho de la malla
-    private int height;                     // Alto de la malla
-    private float cellSize;                 // Tamaño de las celdas
-    private Vector3 originPosition;         // Posición de origen de la malla
-    private TGridObject[,] gridArray;       // Array de la malla
-
-    // @IGM -------------------
-    // Constructor de la clase.
-    // ------------------------
-    public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<Grid<TGridObject>,
-        int, int, TGridObject> createGridObject)
+    // @IGM ----------------------
+    // Metodo para crear la malla.
+    // ---------------------------
+    private void CreateGrid()
     {
 
-        // Establecemos las variables del contructor
-        this.width = width;
-        this.height = height;
-        this.cellSize = cellSize;
-        this.originPosition = originPosition;
+        // Creamos la malla
+        grid = new Node[gridSizeX, gridSizeY];
 
-        // Instanciamos los array
-        gridArray = new TGridObject[width, height];
+        // Buscamos el la posición inicial de la malla
+        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2
+            - Vector3.forward * gridWorldSize.y / 2;
 
         // Recorremos la malla
-        for (int x = 0; x < gridArray.GetLength(0); x++)
+        for (int x = 0; x < gridSizeX; x++)
         {
 
-            for (int y = 0; y < gridArray.GetLength(1); y++)
+            for (int y = 0; y < gridSizeY; y++)
             {
 
-                gridArray[x, y] = createGridObject(this, x, y);
+                // Buscamos la posicion del nodo
+                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius)
+                    + Vector3.forward * (y * nodeDiameter + nodeRadius) + Vector3.up;
+
+                // Miramos si es un nodo caminable
+                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
+
+                // Creamos el nodo y lo añadimos a la malla
+                grid[x, y] = new Node(walkable, worldPoint, x, y);
 
             }
 
         }
 
-        // Booleano para mostrar el grid
-        bool showDebug = false;
+    }
 
-        // Comprobammos si el odo debug está activo
-        if(showDebug)
+    // @IGM --------------------------------------
+    // Funcion para buscar los vecinos de un nodo.
+    // -------------------------------------------
+    public List<Node> GetNeighbours(Node node)
+    {
+
+        // Creamos la lista de nodos vecinos
+        List<Node> neighbours = new List<Node>();
+
+        // Recorremos la malla de nueve posiciones
+        for (int x = -1; x <= 1; x++)
         {
 
-            // Creamos el grid
-            TextMesh[,] debugTextArray = new TextMesh[width, height];
-
-            // Recorremos la matriz de la malla
-            for (int x = 0; x < gridArray.GetLength(0); x++)
+            for (int y = -1; y <= 1; y++)
             {
 
-                for (int y = 0; y < gridArray.GetLength(1); y++)
+                // Comprobamos si es la posicion del nodo
+                if (x == 0 && y == 0)
                 {
 
-                    // Cramos los textos para tener una referencia visual.
-                    debugTextArray[x, y] = CreateWorldText(gridArray[x, y]?.ToString(), GetWorldPosition(x, y)
-                        + new Vector3(cellSize, 0, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter,
-                        TextAlignment.Center, 0);
+                    // Nos saltamos esta posicion
+                    continue;
 
-                    // Dibujamos la líneas de la malla
-                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
-                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
+                }
+
+                // Calculamos las posiciones del vecino
+                int checkX = node.x + x;
+                int checkY = node.y + y;
+
+                // Comporbamos que el vecino esta dentro de la malla
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+
+                    // Añadimos el vecino a la lista
+                    neighbours.Add(grid[checkX, checkY]);
 
                 }
 
             }
 
-            // Dibujamos las líneas que faltan
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+        }
 
-            // Notificamos al evento de que se ha cambiado el valor
-            OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>
+        return neighbours;
+
+    }
+
+    // @IGM --------------------------------
+    // Getter del tamaño maximo de la malla.
+    // -------------------------------------
+    public int MaxSize
+    {
+
+        get
+        {
+
+            return gridSizeX * gridSizeY;
+
+        }
+
+    }
+
+    // @IGM ----------------------------------------------------------------------
+    // Función para transformar una posicion del mundo a una posicion de la malla.
+    // ---------------------------------------------------------------------------
+    public Node NodeFromWorlPoint(Vector3 worldPosition)
+    {
+
+        // Buscamos el porcentaje de la posicion respecto a la malla
+        float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
+        float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
+        percentX = Mathf.Clamp01(percentX);
+        percentY = Mathf.Clamp01(percentY);
+
+        // Buscamos la posicion en la malla
+        int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
+        int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+
+        // Devolvemos la posición de la malla
+        return grid[x, y];
+
+    }
+
+    // @IGM ------------------------------------------------------------
+    // OnDrawGizmos draw gizmos that are also pickable and always drawn.
+    // -----------------------------------------------------------------
+    private void OnDrawGizmos()
+    {
+
+        // Dibujamos las dimensiones de la malla
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+
+        // Comprobamos si se ha creado la malla
+        if (grid != null && displayGridGizmos)
+        {
+
+            // Recorremos la malla
+            foreach (Node node in grid)
             {
 
-                debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
+                // Comrpobamos si el nodo es caminable
+                if (node.isWalkable)
+                {
 
-            };
+                    // Cambiamos el color a blanco
+                    Gizmos.color = Color.white;
 
-        }
+                }
+                else
+                {
 
-    }
+                    // Cambiamos el color a rojo
+                    Gizmos.color = Color.red;
 
-    // @IGM ----------------------------------------------------
-    // Metodo para establecer el valor de una celda de la malla.
-    // ---------------------------------------------------------
-    public void SetGridObject (int x, int y, TGridObject value)
-    {
+                }
 
-        // Comprobamos que las coordenadas sean validas
-        if (x >= 0 && y >= 0 && x < width && y < height)
-        {
+                // Dibujamos el nodo
+                Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
 
-            // Actualizamos las matrices
-            gridArray[x, y] = value;
-            if (OnGridObjectChanged != null) OnGridObjectChanged(this,
-            new OnGridObjectChangedEventArgs { x = x, y = y });
+            }
 
         }
-
-    }
-
-    // @IGM ----------------------------------------------------------------------------
-    // Metodo para establecer el valor de una posicion de la malla sabiendo la posicion.
-    // ---------------------------------------------------------------------------------
-    public void SetGridObject(Vector3 worldPosition, TGridObject value)
-    {
-
-        int x, y;
-
-        // Convertimos la posicion del mundo a la malla
-        GetXY(worldPosition, out x, out y);
-
-        // Establecemos el valor
-        SetGridObject(x, y, value);
-
-    }
-
-    // @IGM ------------------------------------------------------
-    // Triger para avisar que se ha cambiado un valor de la malla.
-    // -----------------------------------------------------------
-    public void TriggerGridObjectChanged(int x, int y)
-    {
-
-        // Actualizamos mediante el evento el grid visual
-        if (OnGridObjectChanged != null) OnGridObjectChanged(this, 
-            new OnGridObjectChangedEventArgs { x = x, y = y });
-
-    }
-
-    // @IGM ------------------------------------------------------------------
-    // Metodo que convierte la posición en el mapa en la posición en la malla.
-    // -----------------------------------------------------------------------
-    public void GetXY(Vector3 worldPosition, out int x, out int y)
-    {
-
-        // Hacemos el cálculo para saber en que celda de la malla se encontraría el punto
-        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
-        y = Mathf.FloorToInt((worldPosition - originPosition).z / cellSize);
-
-    }
-
-    // @IGM -------------------------------------------------
-    // Funcion para recuperar la posición global de la celda.
-    // ------------------------------------------------------
-    public Vector3 GetWorldPosition(int x, int y)
-    {
-
-        return new Vector3(x, 0, y) * cellSize + originPosition;
-
-    }
-
-    // @IGM --------------------------------------
-    // Funcion que crea la celda de manera visual.
-    // -------------------------------------------
-    private static TextMesh CreateWorldText(string text, Vector3 localPosition, int fontSize, Color color,
-        TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder)
-    {
-
-        // Creamos el gameObject y le ponemos los atributos correspondientes
-        GameObject gameObject = new GameObject("WorldText", typeof(TextMesh));
-        Transform transform = gameObject.transform;
-        transform.localPosition = localPosition;
-        transform.rotation = Quaternion.Euler(90, 0, 0);
-        TextMesh textMesh = gameObject.GetComponent<TextMesh>();
-        textMesh.anchor = textAnchor;
-        textMesh.alignment = textAlignment;
-        textMesh.text = text;
-        textMesh.fontSize = fontSize;
-        textMesh.color = color;
-        textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
-
-        return textMesh;
-
-    }
-
-    // @IGM --------------------------------------------------------------------------------------
-    // Funcion que se encarga de devolver el valor de una celda de la malla dadas sus coordenadas.
-    // -------------------------------------------------------------------------------------------
-    public TGridObject GetGridObject(int x, int y)
-    {
-
-        // Comprobamos que las coordenadas sean validas
-        if (x >= 0 && y >= 0 && x < width && y < height)
-        {
-
-            // Devolvemos el valor del array
-            return gridArray[x, y];
-
-        }
-        else
-        {
-
-            // Devolvemos un valor nulo
-            return default(TGridObject);
-
-        }
-
-    }
-
-    // @IGM ---------------------------------------------------------------------------------------------
-    // Funcion que se encarga de devolver el valor de una celda de la malla dada su posición en el mundo.
-    // --------------------------------------------------------------------------------------------------
-    public TGridObject GetGridObject(Vector3 worldPosition)
-    {
-
-        int x, y;
-
-        // Convertimos la posicion del mundo a la malla
-        GetXY(worldPosition, out x, out y);
-
-        // Devolvemos el valor
-        return GetGridObject(x, y);
-
-    }
-
-    // @IGM ----------------------------------------
-    // Funcion para devolver la anchura de la malla.
-    // ---------------------------------------------
-    public int GetWidth()
-    {
-
-        return width;
-
-    }
-
-    // @IGM --------------------------------------
-    // Funcion para devolver la alura de la malla.
-    // -------------------------------------------
-    public int GetHeight()
-    {
-
-        return height;
-
-    }
-
-    // @IGM ---------------------------------------
-    // Función para devolver el tamaño de la celda.
-    // --------------------------------------------
-    public float GetCellSize()
-    {
-
-        return cellSize;
-
-    }
-
-    // @IGM -------------------------------------------------
-    // Función que deviuelve el punto donde empieza la malla.
-    // ------------------------------------------------------SS
-    public Vector3 GetOriginPosition()
-    {
-
-        return originPosition;
 
     }
 

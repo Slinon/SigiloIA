@@ -66,8 +66,6 @@ public class FieldOfView : MonoBehaviour
     public int edgeResolveIterations;       // Veces que se ejecutará el bucle de encontrar la esquina de un obstaculo
     public float edgeDistThreshold;         // Distancia limite del vertice
     
-    
-
     private Mesh viewMesh;                  // Malla de la vista del enemigo
 
     // @IGM -----------------------------------------

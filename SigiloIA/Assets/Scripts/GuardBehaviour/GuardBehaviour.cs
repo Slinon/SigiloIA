@@ -31,7 +31,7 @@ public class GuardBehaviour : MonoBehaviour
         aIMovement = GetComponent<AIMovement>();
 
         // Movemos la IA al primer punto de patrulla
-        aIMovement.SetTargetPosition(currentPoint.position);
+        aIMovement.target = currentPoint;
 
     }
 
@@ -40,9 +40,6 @@ public class GuardBehaviour : MonoBehaviour
     // --------------------------------
     private void Update()
     {
-
-        // Movemos la IA
-        aIMovement.MoveAI();
 
         // Comprobamos cuál es el estado del guardia
         switch (state)
@@ -92,7 +89,7 @@ public class GuardBehaviour : MonoBehaviour
             currentPoint = patrolPoints[currentPointIndex];
 
             // Establecemos el camino
-            aIMovement.SetTargetPosition(currentPoint.position);
+            aIMovement.target = currentPoint;
 
         }
 

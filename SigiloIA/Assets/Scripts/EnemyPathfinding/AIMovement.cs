@@ -4,130 +4,163 @@ using UnityEngine;
 
 public class AIMovement : MonoBehaviour
 {
+    const float MIN_PATH_UPDATE_TIME = 0.2f;            // Constante de tiempo de actualización de camino
+    const float PATH_UPDATE_MOVE_THRESHOLD = 0.5f;      // Constante de margen de movimiento del target
 
-    public float speed =  10f;                              // Velocidad de la IA
-    public float rotationSpeed = 0.5f;                      // Velocidad de rotación de la IA
+    [HideInInspector]
+    public Transform target;                            // Objetivo del movimiento
+    public float speed;                                 // Velocidad de movimiento
+    public float turnSpeed;                             // Velocidad de rotacion
+    public float turnDistance;                          // Distancia de volteado
 
-    private int currentPathIndex;                           // Indice actual del camino
-    private Vector3 targetWorldPosition;                         // Destino de la IA
-    private List<Vector3> pathVectorList;                   // Lista de vectores que forman el camino
+    private Path path;                                  // Camino a seguir
 
-    // @IGM -------------------
-    // Metodo para mover la IA.
-    // ------------------------
-    public void MoveAI()
+    // @IGM -----------------------------------------
+    // Start is called before the first frame update.
+    // ----------------------------------------------
+    void Start()
     {
 
-        // Comprobamos que tenemos un camino válido
-        if (pathVectorList == null || pathVectorList.Count <= 0)
+        // Lanzamos la corrutina de movimiento
+        StartCoroutine(UpdatePath());
+
+    }
+
+    // @IGM --------------------------------------------
+    // Accion que empieza con el movimiento del guardia.
+    // -------------------------------------------------
+    public void OnPathFound(Vector3[] waypoints, bool pathSuccessful)
+    {
+
+        // Comprobamos que el camino se ha construido correctamente
+        if (pathSuccessful)
         {
 
-            StopMoving();
-            return;
-
-        }
-
-        // Comprobamos si estamos en el último nodo
-        if (currentPathIndex >= pathVectorList.Count)
-        {
-
-            // Calculamos la dirección a la que se tiene que over la IA
-            Vector3 moveDir = (targetWorldPosition - transform.position).normalized;
-
-            // Actualizamos la posicion de la IA
-            transform.position = transform.position + moveDir * speed * Time.deltaTime;
-
-            // Rotamos hacia la posicion correcta
-            Quaternion lookRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-
-            // Comprobamos si hemos llegado al punto final
-            if (Vector3.Distance(transform.position, targetWorldPosition) < 1f)
-            {
-
-                // Paramos el movimiento
-                StopMoving();
-
-            }
-
-        }
-        else
-        {
-
-            // Guardamos la posición a la que jnos vamos a mover
-            Vector3 targetPosition = pathVectorList[currentPathIndex];
-
-            // Comrpobamos si aun no hemos llegado a la posición marcada
-            if (Vector3.Distance(transform.position, targetPosition) > 0.3f)
-            {
-
-                // Calculamos la dirección a la que se tiene que over la IA
-                Vector3 moveDir = (targetPosition - transform.position).normalized;
-
-                // Actualizamos la posicion de la IA
-                transform.position = transform.position + moveDir * speed * Time.deltaTime;
-
-                // Rotamos hacia la posicion correcta
-                Quaternion lookRotation = Quaternion.LookRotation(moveDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-
-            }
-            else
-            {
-
-                // Hemos llegado al nodo actual, lo actualizamos
-                currentPathIndex++;
-
-            }
+            // Lanzamos la corrutina
+            path = new Path(waypoints, transform.position, turnDistance);
+            StopCoroutine("FollowPath");
+            StartCoroutine("FollowPath");
 
         }
 
     }
 
-    // @IGM ----------------------------------------------------
-    // Metodo para marcar la posición a la que vamos a movernos.
-    // ---------------------------------------------------------
-    public void SetTargetPosition(Vector3 targetPosition)
+    // @IGM -----------------------------
+    // Corrutina de actualizar el camino.
+    // ----------------------------------
+    IEnumerator UpdatePath()
     {
 
-        // Calculamos el nuevo camino
-        pathVectorList = Pathfinding.GetInstance().FindPath(GetPosition(), targetPosition);
-
-        if (pathVectorList != null)
+        // Pedimos un nuevo camino
+        if (Time.timeSinceLevelLoad < 0.3f)
         {
 
-            // Restablecemos el índice y el destino
-            currentPathIndex = 0;
-            targetWorldPosition = targetPosition;
+            yield return new WaitForSeconds(0.3f);
 
-            /*for (int i = 0; i < pathVectorList.Count - 1; i++)
+        }
+        PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
+
+        // Asignamos las variables
+        float sqrMoveThreshold = PATH_UPDATE_MOVE_THRESHOLD * PATH_UPDATE_MOVE_THRESHOLD;
+        Vector3 targetPosOld = target.position;
+
+        while (true)
+        {
+
+            // Esperamos el tiempo asignado
+            yield return new WaitForSeconds(MIN_PATH_UPDATE_TIME);
+
+            // Comprobamos si la posicion del target ha cambiado lo suficiente
+            if ((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
             {
 
-                Debug.DrawLine(pathVectorList[i], pathVectorList[i + 1], Color.green, 10f);
+                // Pedimos un nuevo camino
+                PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
 
-            }*/
+                // Actualizamos la posicion del target
+                targetPosOld = target.position;
+
+            }
+
 
         }
 
     }
 
-    // @IGM ------------------------------------
-    // Metodo para parar el movimiento de la IA.
-    // -----------------------------------------
-    private void StopMoving()
+    // @IGM --------------------------------------
+    // Corrutina de seguimiento hacia el objetivo.
+    // -------------------------------------------
+    IEnumerator FollowPath()
     {
 
-        pathVectorList = null;
+        // Establecemos los parametros
+        bool followingPath = true;
+        int pathIndex = 0;
+        transform.LookAt(path.lookPoints[0]);
+
+        // Mientras sigamos en el camino
+        while (followingPath)
+        {
+
+            // Transformamos a Vector2 la posicion
+            Vector2 pos2D = new Vector2(transform.position.x, transform.position.z);
+
+            // Mientras no crucemos la linea
+            while (path.turnBoundaries[pathIndex].HasCrossedLine(pos2D))
+            {
+
+                // Comprobamos si el guardia ha llegado al final
+                if (pathIndex == path.finishLineIndex)
+                {
+
+                    // Ya hemos llegado al final
+                    followingPath = false;
+                    break;
+
+                }
+                else
+                {
+
+                    // Vamos al siguiente indice
+                    pathIndex++;
+
+                }
+
+            }
+
+            // Comprobamos si seguimos en el camino
+            if (followingPath)
+            {
+
+                // Rotamos el guardia
+                Quaternion targetRotation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+
+                // Movemos el guardia
+                transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
+
+            }
+
+            yield return null;
+
+        }
 
     }
 
-    // @IGM ---------------------------------------
-    // Funcion para encontrar la posicion de la IA.
-    // --------------------------------------------
-    public Vector3 GetPosition()
+    // @IGM ------------------------------------------------------------
+    // OnDrawGizmos draw gizmos that are also pickable and always drawn.
+    // -----------------------------------------------------------------
+    public void OnDrawGizmos()
     {
 
-        return transform.position;
+        // Comprobamos que existe camino
+        if (path != null)
+        {
+
+            //Dibujamos el camino
+            path.DrawWithGizmos();
+
+        }
 
     }
 
