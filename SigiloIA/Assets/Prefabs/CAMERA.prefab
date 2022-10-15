@@ -82,7 +82,7 @@ MonoBehaviour:
     inicial como \"centro\" del barrido. Si el jugador es detectado, avisar\xE1 a
     los dem\xE1s enemigos en rango (CommunicationRange)."
   rotationAngle: 180
-  rotationSpeed: 30
+  rotationSpeed: 10
   communicationRange: 10
 --- !u!1001 &3223316815593476619
 PrefabInstance:

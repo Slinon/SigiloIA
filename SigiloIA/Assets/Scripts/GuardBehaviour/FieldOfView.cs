@@ -62,6 +62,7 @@ public class FieldOfView : MonoBehaviour
     public LayerMask obstacleMask;          // Capa de los obstaculos
     [Header("Malla")]
     public MeshFilter viewMeshFilter;       // Filtro de malla de la vista del enemigo
+    public MeshRenderer meshRenderer;       // Malla de renderizado del campo de vision
     public float meshResolution;            // Resolución de la malla de visualización
     public int edgeResolveIterations;       // Veces que se ejecutará el bucle de encontrar la esquina de un obstaculo
     public float edgeDistThreshold;         // Distancia limite del vertice
