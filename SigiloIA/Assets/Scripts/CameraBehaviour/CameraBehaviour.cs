@@ -11,6 +11,7 @@ public class CameraBehaviour : MonoBehaviour
     [Header("General")]
     [TextArea] public string description;                  //Breve descripción del código para otros programadores
     public State state;                                    //Estado del enemigo
+    [SerializeField] ParticleSystem ripple;                //Efecto de comunicación con otros NPC
 
     [Header("Camera attributes")]
     [SerializeField] private float rotationAngle;           //Barrido de la cámara (en grados)
@@ -18,7 +19,8 @@ public class CameraBehaviour : MonoBehaviour
     [Range(0,20)] public float communicationRange;          //Alcance para la comunicación con otros NPC
     private float from;                                     //Angulo inicial
     private float to;                                       //Angulo final
-    private bool playerSpotted;                             //Booleano para indicar si el jugador ha sido detectado alguna vez
+    public float speedMultiplier;                           //Multiplicador de velocidad
+    public float rangeMultiplier;                           //Multiplicador de rango de comunicación 
 
     // @GRG ---------------------------
     // Start: Inicialización de variables
@@ -28,8 +30,8 @@ public class CameraBehaviour : MonoBehaviour
         from = transform.rotation.eulerAngles.y - rotationAngle / 2;
         to = transform.rotation.eulerAngles.y + rotationAngle / 2;
 
-        if (from < 0) from = 360 + from;
-        if (to > 360) to = to - 360;
+        //if (from < 0) from = 360 + from;
+        //if (to > 360) to = to - 360;
     }
 
     // @GRG ---------------------------
@@ -48,10 +50,25 @@ public class CameraBehaviour : MonoBehaviour
         //Obtener angulo actual
         float currentAngle = transform.rotation.eulerAngles.y;
 
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //ESTO ES FÉTIDO LO TENGO QUE CAMBIAR
+        //PERDON POR TENER EL CEREBRO TAMAÑO ALMENDRA
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         //Cambiar el sentido de la rotación si se sobrepasa el ángulo inicial o final
-        if (currentAngle > to && currentAngle < from)
+        if (from >= 0 && to >= 0) 
         {
-            rotationSpeed *= -1;
+            if (currentAngle < from || currentAngle > to) rotationSpeed *= -1;
+        }
+
+        if (from < 0)
+        {
+            if (currentAngle < 360 + from && currentAngle > to) rotationSpeed *= -1;
+        }
+
+        if (to > 360)
+        {
+            if (currentAngle < from && currentAngle < to - 360) rotationSpeed *= -1;
         }
 
         //Rotar la cámara
@@ -61,20 +78,39 @@ public class CameraBehaviour : MonoBehaviour
     // @GRG ---------------------------
     // Avisar a los NPC en rango
     // --------------------------------
-    void PlayerSpotted()
+    public void PlayerSpotted()
     {
-        //Si el jugador no ha sido detectado previamente
-        if (!playerSpotted)
-        {
-            //Crear una esfera con origen en el enmigo cámara y radio el rango de comunicación
-            Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 1 << 9);
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //ESTO ES POCHO, CADA COSA DEBERIA SER UN
+        //METODO PRIVADO Y NO SER ESTO UN POPURRI
+        //SON LAS 2 AM LO ARREGLO OTRO DIA XD
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            //Por cada enemigo en dicha esfera
-            foreach (Collider enemy in enemiesNearby)
-            {
-                Debug.Log("Enemy nearby found");
-            }
-        }    
+        //Efecto onda de sonido
+        var main = ripple.main;
+
+        //Ajustar tamaño a rango de comunicación
+        main.startSize = communicationRange * 2;
+
+        //Ajustar color
+        if (state == State.Search) main.startColor = Color.yellow;
+        if (state == State.Chase) main.startColor = Color.red;
+
+        ripple.Play();
+
+        //Crear una esfera con origen en el enmigo cámara y radio el rango de comunicación
+        Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 1 << 9);
+
+        //Por cada enemigo en dicha esfera
+        foreach (Collider enemy in enemiesNearby)
+        {
+            Debug.Log("Enemy nearby found");
+        }
+
+        //Ajustar velocidad y rango de comunicación
+        rotationSpeed *= speedMultiplier;
+        communicationRange *= rangeMultiplier;
+
     }
 
     // @GRG ---------------------------
