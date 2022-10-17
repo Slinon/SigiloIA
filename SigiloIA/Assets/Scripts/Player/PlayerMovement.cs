@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController), typeof(PlayerInput))] // Añade los componentes requeridos como dependencias
+[RequireComponent(typeof(CharacterController), typeof(PlayerInput))] // Aï¿½ade los componentes requeridos como dependencias
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float playerSprint = 10f; // Valor de velocidad correr del jugador
     [SerializeField]
-    private float rotationSpeed = 6f; // Velocidad de rotación del jugador
+    private float rotationSpeed = 6f; // Velocidad de rotaciï¿½n del jugador
 
     private float speed; // Velocidad del jugador
 
@@ -20,9 +20,9 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerController playerController;
 
-    private InputAction moveAction; // Acción de moverse
-    private InputAction sprintAction; // Acción de correr
-    private InputAction transformAction; // Acción de transformarse
+    private InputAction moveAction; // Acciï¿½n de moverse
+    private InputAction sprintAction; // Acciï¿½n de correr
+    private InputAction transformAction; // Acciï¿½n de transformarse
 
     private void Awake()
     {
@@ -33,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
 
         playerController = GetComponent<PlayerController>();
 
-        camaraTransform = Camera.main.transform; // Inicializa Transform de la cámara
+        camaraTransform = Camera.main.transform; // Inicializa Transform de la cï¿½mara
 
-        moveAction = playerInput.actions["Move"]; // Extrae la acción de moverse del InputSystem del jugador (Move)
-        sprintAction = playerInput.actions["Sprint"]; // Extrae la acción de correr del InputSystem del jugador (Sprint)
-        transformAction = playerInput.actions["Transform"]; // Extrae la acción de transformarse del InputSystem del jugador (Transform)
+        moveAction = playerInput.actions["Move"]; // Extrae la acciï¿½n de moverse del InputSystem del jugador (Move)
+        sprintAction = playerInput.actions["Sprint"]; // Extrae la acciï¿½n de correr del InputSystem del jugador (Sprint)
+        transformAction = playerInput.actions["Transform"]; // Extrae la acciï¿½n de transformarse del InputSystem del jugador (Transform)
 
         Cursor.lockState = CursorLockMode.Locked; // Oculta y bloquea el cursor en el centro de la pantalla
     }
@@ -66,12 +66,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // @EMF -----------------------
-    // Método para mover al jugador
+    // Mï¿½todo para mover al jugador
     // ----------------------------
 
     void MovePlayer()
     {
-        // Comprueba si está corriendo para asignar la velocidad correspondiente
+        // Comprueba si estï¿½ corriendo para asignar la velocidad correspondiente
         if (sprintAction.IsPressed())
         {
             speed = playerSprint;
@@ -81,18 +81,22 @@ public class PlayerMovement : MonoBehaviour
             speed = playerSpeed;
         }
 
-        // Obtiene la dirección de movimiento dada por el Input del jugador (WASD) horizaontal/vertical
+        // Obtiene la direcciï¿½n de movimiento dada por el Input del jugador (WASD) horizaontal/vertical
         Vector3 move = new Vector3(moveAction.ReadValue<Vector2>().x, 0f, moveAction.ReadValue<Vector2>().y);
 
-        // Modifica la dirección de movimiento del jugador para que vaya en dirección de la cámara (sin la altura: y = 0)
-        move = move.x * camaraTransform.right.normalized + move.z * camaraTransform.forward.normalized;
-        move.y = 0f;
+        // Modifica la direcciï¿½n de movimiento del jugador para que vaya en direcciï¿½n de la cï¿½mara (sin la altura: y = 0)
+        //move = move.x * camaraTransform.right.normalized + move.z * camaraTransform.forward.normalized;
+        //move.y = 0f;
 
         // Mueve el jugador a la velocidad correspondiente
         controller.Move(move * speed * Time.deltaTime);
 
-        // Rota el jugador en dirección de la cámara
-        Quaternion targetRotation = Quaternion.Euler(0f, camaraTransform.eulerAngles.y, 0f);
+        // Rota el jugador en direcciï¿½n de la cï¿½mara
+        //Quaternion targetRotation = Quaternion.Euler(0f, camaraTransform.eulerAngles.y, 0f);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        Quaternion targetRotation = Quaternion.LookRotation(movement);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
