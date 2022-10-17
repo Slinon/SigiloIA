@@ -15,6 +15,7 @@ public class SpotlightBehaviour : MonoBehaviour
 
     [Header("Spotlight attributes")]
     public float timeToSpot = 2f;                           //tiempo que tarda en detectar al jugador
+    [Range(0,2)] public float timeToSpotReduction = 2f;     //tiempo que tarda en detectar al jugador
     public float detectionMeter = 0;                        //"Barra" de detección
 
     [Header("State colors")]
@@ -78,6 +79,9 @@ public class SpotlightBehaviour : MonoBehaviour
 
             //Resetear la barra
             detectionMeter = 0;
+
+            //Reducir el tiempo que tarda en detectar
+            timeToSpot -= timeToSpotReduction;
 
             //LLamar a PlayerSpotted
             enemyParent.GetComponent<CameraBehaviour>().PlayerSpotted();

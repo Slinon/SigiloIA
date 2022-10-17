@@ -11,7 +11,7 @@ public class CameraBehaviour : MonoBehaviour
     [Header("General")]
     [TextArea] public string description;                  //Breve descripción del código para otros programadores
     public State state;                                    //Estado del enemigo
-    [SerializeField] ParticleSystem ripple;                //Efecto de comunicación con otros NPC
+    [SerializeField] GameObject ripple;                    //Efecto de comunicación con otros NPC
 
     [Header("Camera attributes")]
     [SerializeField] private float rotationAngle;           //Barrido de la cámara (en grados)
@@ -80,23 +80,23 @@ public class CameraBehaviour : MonoBehaviour
     // --------------------------------
     public void PlayerSpotted()
     {
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //ESTO ES POCHO, CADA COSA DEBERIA SER UN
         //METODO PRIVADO Y NO SER ESTO UN POPURRI
         //SON LAS 2 AM LO ARREGLO OTRO DIA XD
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        //Efecto onda de sonido
-        var main = ripple.main;
+        //Reproducir effecto
+        if (state == State.Search)
+        {
+            ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
+        }
 
-        //Ajustar tamaño a rango de comunicación
-        main.startSize = communicationRange * 2;
-
-        //Ajustar color
-        if (state == State.Search) main.startColor = Color.yellow;
-        if (state == State.Chase) main.startColor = Color.red;
-
-        ripple.Play();
+        if (state == State.Chase)
+        {
+            ripple.GetComponent<RippleEffect>().PlayRipple(Color.red, communicationRange);
+        }
 
         //Crear una esfera con origen en el enmigo cámara y radio el rango de comunicación
         Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 1 << 9);
