@@ -40,16 +40,6 @@ public class PlayerSoundEffects : MonoBehaviour
     // -------------------------------------------------------------------
     void DetectEnemiesNearby(Vector3 center, float radius)
     {
-        // Creamos una esfera que devuelve un array con todos los enemigos con los que colisiona 
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius, enemyLayerMask);
-
-        foreach(var hitCollider in hitColliders)
-        {
-            Debug.Log(hitCollider + " heard you");  
-
-            // Función que tienen los enemigos
-            //hitCollider.SendMessage("Alert"); 
-            
-        }
+        AIManager.Instance.CallGuard(center, radius, transform.position);
     }
 }

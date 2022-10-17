@@ -7,11 +7,15 @@ public class GuardBehaviour : MonoBehaviour
     
     [Header("General")]
     public float stoppingDistance;                  // Distancia de seguridad al punto al que se mueve el guardia
-    //[HideInInspector]
+    [HideInInspector]
     public State state;                             // Estado del guardia
 
     private AIMovement aIMovement;                  // Gestión de movimiento de la IA
     private FieldOfView fieldOfView;                // Campo de vision del guardia
+    public FieldOfView FieldOfView
+    {
+        get { return fieldOfView; }
+    }
     private Vector3 currentPoint;                   // Posición destino dentro de la patrulla
     private bool playerSpotted;                     // Booleano que indica si ya se ha visto al jugador
 
@@ -92,6 +96,57 @@ public class GuardBehaviour : MonoBehaviour
         // Actualizamos el color del campo de vision
         SetDetectiometer();
         
+    }
+
+    // @IGM -------------------------------------------------
+    // Metodo para alarmar un guardia y perseguir al jugador.
+    // ------------------------------------------------------
+    public void AlarmGuard()
+    {
+
+        // Cambiamos el estado de la patrulla
+        state = State.Chase;
+
+        // Marcamos que se ha detectado al jugador
+        playerSpotted = true;
+
+        // Actualizamos la posición del jugador
+        currentPoint = player.position;
+        aIMovement.target = currentPoint;
+
+    }
+
+    // @IGM ------------------------------------------------
+    // Metodo para alertar y enviar un guardia a investigar.
+    // -----------------------------------------------------
+    public void AlertGuard(Vector3 targetPosition)
+    {
+
+        // Cambiamos el estado de la patrulla
+        state = State.Search;
+
+        // Marcamos que se ha detectado al jugador
+        playerSpotted = true;
+
+        // Actualizamos la posición del jugador
+        currentPoint = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+        aIMovement.target = currentPoint;
+
+    }
+
+    public void CalmGuard()
+    {
+
+        // Cambiamos el estado de la patrulla
+        state = State.Patrol;
+
+        // Actualizamos la posición del jugador
+        currentPoint = patrolPoints[currentPointIndex].position;
+        aIMovement.target = currentPoint;
+
+        // Reseteamos el timer
+        currentSeachTime = 0;
+
     }
 
     // @IGM ---------------------------------------
@@ -200,30 +255,18 @@ public class GuardBehaviour : MonoBehaviour
         if (detectionMeter > timeToSearch && fieldOfView.player != null && !playerSpotted)
         {
 
-            // Cambiamos el estado de la patrulla
-            state = State.Search;
-
-            // Marcamos que se ha detectado al jugador
-            playerSpotted = true;
-
-            // Actualizamos la posición del jugador
-            currentPoint = new Vector3(fieldOfView.player.position.x, fieldOfView.player.position.y, fieldOfView.player.position.z);
-            aIMovement.target = currentPoint;
+            // Alertamos al guardia
+            AlertGuard(fieldOfView.player.position);
 
             // Avisamos al guardia más cercano para que investigue con el
+            AIManager.Instance.CallNearestGuard(transform.position, fieldOfView.player.position);
 
         }
         else if (chaseMeter > timeToChase && fieldOfView.player != null && playerSpotted)
         {
 
-            // Cambiamos el estado de la patrulla
-            state = State.Chase;
-
-            // Actualizamos la posición del jugador
-            currentPoint = fieldOfView.player.position;
-            aIMovement.target = currentPoint;
-
             // Avisamos a todos los guardias y activamos las alarmas
+            AIManager.Instance.CallAllGuards(fieldOfView.player.position);
 
         }
 
@@ -253,15 +296,8 @@ public class GuardBehaviour : MonoBehaviour
             else
             {
 
-                // Cambiamos el estado de la patrulla
-                state = State.Patrol;
-
-                // Actualizamos la posición del jugador
-                currentPoint = patrolPoints[currentPointIndex].position;
-                aIMovement.target = currentPoint;
-
-                // Reseteamos el timer
-                currentSeachTime = 0;
+                //Calmamos al guardia
+                CalmGuard();
 
             }
         }
@@ -272,14 +308,8 @@ public class GuardBehaviour : MonoBehaviour
         if (chaseMeter > timeToChase && fieldOfView.player != null && playerSpotted)
         {
 
-            // Cambiamos el estado de la patrulla
-            state = State.Chase;
-
-            // Actualizamos la posición del jugador
-            currentPoint = fieldOfView.player.position;
-            aIMovement.target = currentPoint;
-
             // Avisamos a todos los guardias y activamos las alarmas
+            AIManager.Instance.CallAllGuards(fieldOfView.player.position);
 
         }
 
