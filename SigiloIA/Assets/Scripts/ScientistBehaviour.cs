@@ -103,6 +103,7 @@ public class ScientistBehaviour : MonoBehaviour
 
     private void Huir()
     {
+        aIMovement.speed=10f;
         AIManager.Instance.CallAllGuards(player.position);
         aIMovement.target= HuidaPoint[0].position;
     }
