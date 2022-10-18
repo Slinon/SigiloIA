@@ -7,10 +7,12 @@ public class ScientistBehaviour : MonoBehaviour
     public float stoppingDistance;
     public State state;
     private AIMovement aIMovement;
+    
 
     public Transform[] ScientistPoints;
     private Vector3 scientistcurrentPoint;
     private int scientistcurrentPointIndex;
+
 
     public Transform[] AlarmPoints;
     private Vector3 alarmcurrentPoint;
@@ -23,7 +25,7 @@ public class ScientistBehaviour : MonoBehaviour
     
     void Start()
     {
-        state = State.Search;
+        state = State.Patrol;
 
         scientistcurrentPointIndex = 0;
         scientistcurrentPoint = ScientistPoints[scientistcurrentPointIndex].position;
@@ -77,6 +79,7 @@ public class ScientistBehaviour : MonoBehaviour
     private void ActivarAlarma()
     {
         
+        aIMovement.speed=10f;
         for(int i=1; i<AlarmPoints.Length; i++)
         {
             aux = AlarmPoints[i].position;
