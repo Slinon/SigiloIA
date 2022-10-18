@@ -84,16 +84,12 @@ public class AIManager : MonoBehaviour
 
         }
 
-
         if (timerStart)
         {
 
             timerInChase -= Time.deltaTime;
 
         }
-
-        Debug.Log(timerInChase);
-        
 
         if (timerInChase <= 0)
         {
@@ -151,15 +147,26 @@ public class AIManager : MonoBehaviour
     // ------------------------------------------------------------------------------------------
     public void CallGuard(Vector3 originPosition, float communicationRange, Vector3 targetPosition)
     {
-
+    
         //Buscamos todos los enemigos que hay en el rango
         Collider[] enemiesNearby = Physics.OverlapSphere(originPosition, communicationRange, enemyLayer);
+
+        // Comprobamos si ha detectado algun enemigo
+        if (enemiesNearby.Length <= 0)
+        {
+     
+            // No hacemos nada
+            return;
+
+        }
 
         // Escogemos el enemigo mas cercano
         GuardBehaviour closestGuard = enemiesNearby[0].gameObject.GetComponent<GuardBehaviour>();
 
+        Debug.Log(enemiesNearby[0]);
+
         // Comprobamos si tiene el script deseado
-        if (closestGuard != null)
+        if (closestGuard != null && closestGuard.state != State.Chase)
         {
 
             // Alertamos al guardia
@@ -207,8 +214,13 @@ public class AIManager : MonoBehaviour
 
         }
 
-        // Alertamos al guardia
-        closestGuard.AlertGuard(targetPosition);
+        if (closestGuard != null && closestGuard.state != State.Chase)
+        {
+
+            // Alertamos al guardia
+            closestGuard.AlertGuard(targetPosition);
+
+        }
 
     }
 

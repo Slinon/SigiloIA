@@ -10206,14 +10206,6 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 695304338}
-    - target: {fileID: 4160241629714725114, guid: 839609dce415c2f429264653fd365b02, type: 3}
-      propertyPath: patrolPoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1987781495}
-    - target: {fileID: 4160241629714725114, guid: 839609dce415c2f429264653fd365b02, type: 3}
-      propertyPath: patrolPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 2112700411}
     - target: {fileID: 4160241629714725116, guid: 839609dce415c2f429264653fd365b02, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -14658,6 +14650,10 @@ PrefabInstance:
     - target: {fileID: 1312846818131573715, guid: b4639acc4dba3ca459222b6cf2cdfeae, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617656951687941659, guid: b4639acc4dba3ca459222b6cf2cdfeae, type: 3}
+      propertyPath: radius
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4639acc4dba3ca459222b6cf2cdfeae, type: 3}
@@ -21602,14 +21598,6 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 1726342907}
-    - target: {fileID: 4160241629714725114, guid: 839609dce415c2f429264653fd365b02, type: 3}
-      propertyPath: patrolPoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1987781495}
-    - target: {fileID: 4160241629714725114, guid: 839609dce415c2f429264653fd365b02, type: 3}
-      propertyPath: patrolPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 2112700411}
     - target: {fileID: 4160241629714725116, guid: 839609dce415c2f429264653fd365b02, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -38985,14 +38973,6 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 284385321}
-    - target: {fileID: 4160241629714725114, guid: 839609dce415c2f429264653fd365b02, type: 3}
-      propertyPath: patrolPoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1987781495}
-    - target: {fileID: 4160241629714725114, guid: 839609dce415c2f429264653fd365b02, type: 3}
-      propertyPath: patrolPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 2112700411}
     - target: {fileID: 4160241629714725116, guid: 839609dce415c2f429264653fd365b02, type: 3}
       propertyPath: m_RootOrder
       value: 9
