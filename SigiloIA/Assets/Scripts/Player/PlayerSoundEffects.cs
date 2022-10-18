@@ -5,18 +5,14 @@ using UnityEngine;
 public class PlayerSoundEffects : MonoBehaviour
 {
     [SerializeField] private CharacterController playerController;
-    [SerializeField] private GameObject player;
     [SerializeField] private AudioClip[] clips;
     private AudioSource audioSource;
-    [SerializeField] private float radius = 4f;
-    [SerializeField] private int enemyLayer = 9;
-    private int enemyLayerMask;
+    public float radius;
 
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        enemyLayerMask = (1 << enemyLayer);
     }
 
     void Update()
@@ -31,7 +27,7 @@ public class PlayerSoundEffects : MonoBehaviour
             audioSource.Play();    
 
             // Detectar qué enemigos están dentro del radio
-            DetectEnemiesNearby(player.transform.position , radius);
+            DetectEnemiesNearby(transform.position, radius);
         }
     }
 

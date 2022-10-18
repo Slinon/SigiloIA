@@ -10,8 +10,9 @@ public class SecurityCamera : MonoBehaviour
     public float rotationSpeed;                             //Velocidad de giro de la cámara
     public int communicationRange;                          //Alcance para enviar una señal a otros enemigos
 
-    private float from;
-    private float to;
+    private float from;                                     //Angulo inicial
+    private float to;                                       //Angulo final
+
 
     private void Start()
     {
@@ -46,27 +47,17 @@ public class SecurityCamera : MonoBehaviour
 
         if (from >= 0 && to >= 0) //caso estandar
         {
-            if (currentAngle < from || currentAngle > to)
-            {
-                rotationSpeed *= -1;
-            }
+            if (currentAngle < from || currentAngle > to) rotationSpeed *= -1;
         }
         
         if (from < 0) //caso si from "se pasa"
         {
-
-            if (currentAngle < 360 + from && currentAngle > to)
-            {
-                rotationSpeed *= -1;
-            }
+            if (currentAngle < 360 + from && currentAngle > to) rotationSpeed *= -1;
         }
 
         if (to > 360) //caso si to "se pasa"
         {
-            if (currentAngle < from && currentAngle < to - 360)
-            {
-                rotationSpeed *= -1;
-            }
+            if (currentAngle < from && currentAngle < to - 360) rotationSpeed *= -1;
         }
 
         //Código para rotar

@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     {
         SetActiveFalseAllChildren();
         player.transform.GetChild(0).gameObject.SetActive(true);
+        player.gameObject.tag = "Player";
+        player.gameObject.layer = 7;
     }
 
     public void TranformObject()
@@ -56,6 +58,9 @@ public class PlayerController : MonoBehaviour
         {
             player.transform.GetChild(3).gameObject.SetActive(true);
         }
+
+        player.gameObject.tag = "Point";
+        player.gameObject.layer = 6;
     }
 
     public void ShowTButtonText(bool value)
