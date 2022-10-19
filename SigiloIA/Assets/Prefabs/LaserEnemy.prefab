@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5821090630367851637}
+  - component: {fileID: 1023029541}
+  - component: {fileID: 7544776230352975538}
   m_Layer: 0
   m_Name: LaserEnemy
   m_TagString: Untagged
@@ -34,6 +36,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1023029541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508365790540382456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42ff6b3bed5c5143b873d2518d390be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: 
+  state: 0
+  ripple: {fileID: 3010317645411330221}
+  col: {fileID: 7544776230352975538}
+  communicationRange: 10
+  onOffSpeed: 3
+  onOffReduction: 0.5
+  rangeMultiplier: 1.5
+  patrolColor: {r: 1, g: 1, b: 1, a: 1}
+  searchColor: {r: 1, g: 1, b: 0, a: 1}
+  chaseColor: {r: 1, g: 0, b: 0, a: 1}
+  lasers:
+  - {fileID: 5351724133236493864}
+  - {fileID: 3845941206891792364}
+  - {fileID: 2559673886849871482}
+  - {fileID: 7544526032134697067}
+--- !u!65 &7544776230352975538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508365790540382456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 3.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1650968998211903433
 GameObject:
   m_ObjectHideFlags: 0
@@ -4795,7 +4838,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4858,7 +4901,7 @@ GameObject:
   - component: {fileID: 7544526032134697067}
   - component: {fileID: 5660304177793117129}
   m_Layer: 0
-  m_Name: Particle System (3)
+  m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14550,7 +14593,7 @@ GameObject:
   - component: {fileID: 2559673886849871482}
   - component: {fileID: 1884003162328663768}
   m_Layer: 0
-  m_Name: Particle System (2)
+  m_Name: Particle System (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19539,6 +19582,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce3ee8af77289a547a71d8e88de19f95, type: 3}
+--- !u!1 &3010317645411330221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5450555836969051421, guid: ce3ee8af77289a547a71d8e88de19f95, type: 3}
+  m_PrefabInstance: {fileID: 7089378662913265072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3010317645411330220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5450555836969051420, guid: ce3ee8af77289a547a71d8e88de19f95, type: 3}

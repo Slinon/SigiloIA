@@ -19,7 +19,7 @@ public class LaserBehaviour : MonoBehaviour
     public float onOffSpeed;                                //tiempo entre tarda en cambiar de encendido a apagado
     public float onOffReduction;                            //Reduccion del tiempo que tarda en cambiar de encendido a apagado
     public float rangeMultiplier;                           //Multiplicador de rango de comunicación
-    private bool on = true;
+    private float timer;
 
 
     [Header("State colors")]
@@ -29,16 +29,34 @@ public class LaserBehaviour : MonoBehaviour
 
     public ParticleSystem[] lasers;                        //Lasers
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        timer = onOffSpeed;
     }
-
     // Update is called once per frame
     void Update()
     {
-        UpdateColor();
+        timer -= Time.deltaTime;
+
+        if (timer < 0)
+        {
+            col.enabled = !col.enabled;
+
+            timer = onOffSpeed;
+
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                if (col.enabled)
+                {
+                    lasers[i].Play();
+                }
+
+                else
+                {
+                    lasers[i].Stop();
+                }
+            }
+        }
     }
 
     // @GRG ---------------------------
@@ -48,21 +66,21 @@ public class LaserBehaviour : MonoBehaviour
     { 
         for (int i = 0; i < lasers.Length; i++)
         {
-            var main = lasers[i].main;
+            var laser = lasers[i].main;
 
             if (state == State.Patrol)
             {
-                main.startColor = patrolColor;
+                laser.startColor = patrolColor;
             }
 
             if (state == State.Search)
             {
-                main.startColor = searchColor;
+                laser.startColor = searchColor;
             }
 
             if (state == State.Chase)
             {
-                main.startColor = chaseColor;
+                laser.startColor = chaseColor;
             }
         }       
     }
@@ -72,6 +90,16 @@ public class LaserBehaviour : MonoBehaviour
     // --------------------------------
     public void PlayerSpotted()
     {
+
+        if (state != State.Chase)
+        {
+            state += 1;
+            onOffSpeed -= onOffReduction;
+            communicationRange *= rangeMultiplier;
+        }
+
+        UpdateColor();
+
         //Reproducir effecto
         if (state == State.Search)
         {
@@ -92,10 +120,6 @@ public class LaserBehaviour : MonoBehaviour
             Debug.Log("Enemy nearby found");
         }
 
-        //Ajustar velocidad y rango de comunicación
-        onOffSpeed -= onOffReduction;
-        communicationRange *= rangeMultiplier;
-
     }
 
     // @GRG ---------------------------
@@ -105,6 +129,7 @@ public class LaserBehaviour : MonoBehaviour
     {
         if (other.tag is "Player")
         {
+            Debug.Log("Player spotted");
             PlayerSpotted();
         }
     }
