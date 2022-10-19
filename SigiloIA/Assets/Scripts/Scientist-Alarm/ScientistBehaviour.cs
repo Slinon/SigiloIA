@@ -7,8 +7,7 @@ public class ScientistBehaviour : MonoBehaviour
     public float stoppingDistance;
     public State state;
     private AIMovement aIMovement;
-    public Alarm alarma;
-    
+    private bool pulsado;
 
     public Transform[] ScientistPoints;
     private Vector3 scientistcurrentPoint;
@@ -18,6 +17,7 @@ public class ScientistBehaviour : MonoBehaviour
     public Transform[] AlarmPoints;
     private Vector3 alarmcurrentPoint;
     private Vector3 aux;
+    private Vector3 HuidaPointsite;  
     private int alarmcurrentPointIndex;
     public Transform player;
     public Transform[] HuidaPoint;
@@ -35,9 +35,12 @@ public class ScientistBehaviour : MonoBehaviour
         alarmcurrentPoint = AlarmPoints[alarmcurrentPointIndex].position;
 
         aIMovement = GetComponent<AIMovement>();
-        alarma=GetComponent<Alarm>();
+        Alarm alarma=GetComponent<Alarm>();
 
         aIMovement.target = scientistcurrentPoint;
+
+        pulsado=true;
+        
         
     }
 
@@ -75,6 +78,8 @@ public class ScientistBehaviour : MonoBehaviour
             scientistcurrentPoint = ScientistPoints[scientistcurrentPointIndex].position;
 
             aIMovement.target = scientistcurrentPoint;
+
+            
         }
     }
 
@@ -88,8 +93,10 @@ public class ScientistBehaviour : MonoBehaviour
     private void PulsarBoton()
     {
         aIMovement.speed=10f;
+        
         for(int i=1; i<AlarmPoints.Length; i++)
         {
+            Debug.Log("Iteracion");
             aux = AlarmPoints[i].position;
             float posicion1= Vector3.Distance(transform.position, alarmcurrentPoint);
             float posicion2= Vector3.Distance(transform.position, aux);
@@ -97,21 +104,26 @@ public class ScientistBehaviour : MonoBehaviour
             if(posicion2<posicion1)
             {
                 alarmcurrentPointIndex=i;
-                alarmcurrentPoint=AlarmPoints[alarmcurrentPointIndex].position;
+                alarmcurrentPoint= AlarmPoints[alarmcurrentPointIndex].position;
             }
         }
+        
+        if(pulsado)
+        {
+            aIMovement.target=alarmcurrentPoint;
+        }
+        
 
-        aIMovement.target=alarmcurrentPoint;
 
         if(Vector3.Distance(transform.position, alarmcurrentPoint) < stoppingDistance)
         {
-
-            
+            alarmcurrentPoint = HuidaPoint[0].position;
+            aIMovement.target=alarmcurrentPoint;
+            pulsado=false;
         }  
-
-        aIMovement.speed=10f;
-        aIMovement.target= HuidaPoint[0].position;
+        
     }
+
 
 
 }
