@@ -10018,6 +10018,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
   m_PrefabInstance: {fileID: 1209714131}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &576496758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3893872026875170165, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+  m_PrefabInstance: {fileID: 1926369558}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &577676901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
@@ -14682,11 +14687,46 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
   m_PrefabInstance: {fileID: 1122932839}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &820223328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3893872026875170165, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+  m_PrefabInstance: {fileID: 1770797676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &820223329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820223328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alarmaFuncional: 1
+  player: {fileID: 2091071584}
+  cientifico: []
 --- !u!4 &821046988 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3719409278636218444, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
   m_PrefabInstance: {fileID: 1926369558}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &821046989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576496758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alarmaFuncional: 1
+  player: {fileID: 2091071584}
+  cientifico: []
 --- !u!4 &821519352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
@@ -16676,6 +16716,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
   m_PrefabInstance: {fileID: 1359351779}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &919761823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3893872026875170165, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+  m_PrefabInstance: {fileID: 1967072389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &919761824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919761823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alarmaFuncional: 1
+  player: {fileID: 2091071584}
+  cientifico: []
 --- !u!1001 &922042364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17368,7 +17428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1679373281624292286, guid: f30a311bacdb2c54bb03cce741ad09a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.382202
+      value: -35.762264
       objectReference: {fileID: 0}
     - target: {fileID: 1679373281624292286, guid: f30a311bacdb2c54bb03cce741ad09a7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -28320,6 +28380,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
   m_PrefabInstance: {fileID: 1567936151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1567984050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3893872026875170165, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+  m_PrefabInstance: {fileID: 1493518684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1571255979
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33739,7 +33804,7 @@ MonoBehaviour:
   displayPathGizmos: 0
   speed: 3
   turnSpeed: 3
-  turnDistance: 0.3
+  turnDistance: 0.1
 --- !u!114 &1797194521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33754,6 +33819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stoppingDistance: 2
   state: 0
+  alarma: {fileID: 0}
   ScientistPoints:
   - {fileID: 295342401}
   - {fileID: 1298402685}
@@ -34639,6 +34705,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3719409278636218444, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
   m_PrefabInstance: {fileID: 1493518684}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1851850747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567984050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alarmaFuncional: 1
+  player: {fileID: 2091071584}
+  cientifico: []
 --- !u!1001 &1851906368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40021,7 +40102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2841978552343438720, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.92801
+      value: -19.8
       objectReference: {fileID: 0}
     - target: {fileID: 2841978552343438720, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: m_LocalPosition.y
@@ -40029,7 +40110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2841978552343438720, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.344774
+      value: -16.5
       objectReference: {fileID: 0}
     - target: {fileID: 2841978552343438720, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: m_LocalRotation.w

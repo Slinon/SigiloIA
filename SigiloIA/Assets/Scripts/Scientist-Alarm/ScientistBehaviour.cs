@@ -7,6 +7,7 @@ public class ScientistBehaviour : MonoBehaviour
     public float stoppingDistance;
     public State state;
     private AIMovement aIMovement;
+    public Alarm alarma;
     
 
     public Transform[] ScientistPoints;
@@ -34,6 +35,7 @@ public class ScientistBehaviour : MonoBehaviour
         alarmcurrentPoint = AlarmPoints[alarmcurrentPointIndex].position;
 
         aIMovement = GetComponent<AIMovement>();
+        alarma=GetComponent<Alarm>();
 
         aIMovement.target = scientistcurrentPoint;
         
@@ -48,10 +50,10 @@ public class ScientistBehaviour : MonoBehaviour
                 Patrol();
                 break;
             case State.Search:
-                ActivarAlarma();
+                LlamarGuardia();
                 break;               
             case State.Chase:
-                Huir();
+                PulsarBoton();
                 break;
         }
     }
@@ -76,9 +78,15 @@ public class ScientistBehaviour : MonoBehaviour
         }
     }
 
-    private void ActivarAlarma()
+    private void LlamarGuardia()
     {
         
+        
+         
+    }
+
+    private void PulsarBoton()
+    {
         aIMovement.speed=10f;
         for(int i=1; i<AlarmPoints.Length; i++)
         {
@@ -94,17 +102,14 @@ public class ScientistBehaviour : MonoBehaviour
         }
 
         aIMovement.target=alarmcurrentPoint;
+
         if(Vector3.Distance(transform.position, alarmcurrentPoint) < stoppingDistance)
         {
-            state = State.Chase;
-        }      
-         
-    }
 
-    private void Huir()
-    {
+            
+        }  
+
         aIMovement.speed=10f;
-        AIManager.Instance.CallAllGuards(player.position);
         aIMovement.target= HuidaPoint[0].position;
     }
 
