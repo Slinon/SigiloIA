@@ -142,7 +142,7 @@ public class ScientistBehaviour : MonoBehaviour
     //Search
     private void LlamarGuardia()
     {
-        aIMovement.speed=6f;
+        aIMovement.speed=5f;
 
 
         GuardBehaviour[] guards = GameObject.FindObjectsOfType<GuardBehaviour>();
