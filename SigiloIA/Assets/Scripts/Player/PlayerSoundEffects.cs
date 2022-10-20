@@ -20,21 +20,17 @@ public class PlayerSoundEffects : MonoBehaviour
     
     void Update(){
         if(isRunning){
-            Debug.Log("isRunning: " + isRunning);
-            // Reproducir los pasos con variaciones aleatorias
-            audioSource.clip = clips[Random.Range(0, clips.Length)];
-            audioSource.volume = Random.Range(0.8f, 1);
-            audioSource.pitch = Random.Range(0.8f, 1.1f);
-            audioSource.Play();    
-
+            if(!audioSource.isPlaying){
+                // Reproducir los pasos con variaciones aleatorias
+                audioSource.clip = clips[Random.Range(0, clips.Length)];
+                audioSource.volume = Random.Range(0.8f, 1);
+                audioSource.pitch = Random.Range(0.8f, 1.1f);
+                audioSource.Play();    
+            }
+            
             // Detectar qué enemigos están dentro del radio
             DetectEnemiesNearby(transform.position, radius);
         }
-    }
-
-    public void playSteps()
-    {
-        isRunning = true;
     }
 
     // @VJT --------------------------------------------------------------

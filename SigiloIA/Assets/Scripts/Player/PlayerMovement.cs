@@ -62,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerController.TransformPlayer();
             MovePlayer();
-            Debug.Log("isMoving: " + moveAction.IsPressed());
         } else
         {
             PlayerSoundEffects.instance.isRunning = false;
