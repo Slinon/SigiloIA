@@ -7386,7 +7386,7 @@ MonoBehaviour:
   - {fileID: 2022589615}
   patrolColor: {r: 1, g: 1, b: 1, a: 0.49803922}
   searchColor: {r: 1, g: 0.9647059, b: 0, a: 0.49803922}
-  timeToSearch: 2
+  timeToSearch: 1
   chaseColor: {r: 1, g: 0, b: 0, a: 0.49803922}
   timeToChase: 1
   timeSearching: 10
@@ -14806,7 +14806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alarmaFuncional: 1
+  alarmaFuncional: 0
   player: {fileID: 2091071584}
 --- !u!4 &821046988 stripped
 Transform:
@@ -14825,7 +14825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alarmaFuncional: 1
+  alarmaFuncional: 0
   player: {fileID: 2091071584}
 --- !u!4 &821519352 stripped
 Transform:
@@ -16898,7 +16898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf03efba5f6e7c248bbd4017df32e43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alarmaFuncional: 1
+  alarmaFuncional: 0
   player: {fileID: 2091071584}
 --- !u!1001 &922042364
 PrefabInstance:
@@ -17592,7 +17592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1679373281624292286, guid: f30a311bacdb2c54bb03cce741ad09a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.379734
+      value: -35.762264
       objectReference: {fileID: 0}
     - target: {fileID: 1679373281624292286, guid: f30a311bacdb2c54bb03cce741ad09a7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -33998,9 +33998,9 @@ MonoBehaviour:
   - {fileID: 2022589615}
   patrolColor: {r: 1, g: 1, b: 1, a: 0.49803922}
   searchColor: {r: 1, g: 0.9647059, b: 0, a: 0.49803922}
-  timeToSearch: 2
+  timeToSearch: 1
   chaseColor: {r: 1, g: 0, b: 0, a: 0.49803922}
-  timeToChase: 2
+  timeToChase: 1
   timeSearching: 10
 --- !u!4 &1797194522 stripped
 Transform:

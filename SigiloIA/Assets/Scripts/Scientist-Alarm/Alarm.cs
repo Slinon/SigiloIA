@@ -7,39 +7,51 @@ public class Alarm : MonoBehaviour
 
     public bool alarmaFuncional;
     public Transform player;
-
     private ScientistBehaviour[] cientificoingame;
-
-
 
 
     private void Start()
     {  
+        alarmaFuncional= true;
         cientificoingame = GameObject.FindObjectsOfType<ScientistBehaviour>();
         
     }
 
     public void Update()
     {  
+        
         ActivarAlarma();
 
     }
 
     public void ActivarAlarma()
     {
-        foreach (ScientistBehaviour cientifico in cientificoingame)
+        if(alarmaFuncional)
         {
-
-            if (cientifico.state == State.Chase && (Vector3.Distance(transform.position, cientifico.transform.position) < cientifico.stoppingDistance))
+            foreach (ScientistBehaviour cientifico in cientificoingame)
             {
 
-                if(alarmaFuncional)
+                if (cientifico.state == State.Chase && (Vector3.Distance(transform.position, cientifico.transform.position) < cientifico.stoppingDistance))
                 {
-                    AIManager.Instance.CallAllGuards(player.position);
-                }
 
+                    AIManager.Instance.CallAllGuards(player.position);
+
+                }
             }
         }
     }
+
+
+    public void DesactivarAlarma()
+    {
+        if(alarmaFuncional)
+        {
+            alarmaFuncional=false;
+        }else
+        {
+            alarmaFuncional=true;
+        }
+    }
+
 
 }

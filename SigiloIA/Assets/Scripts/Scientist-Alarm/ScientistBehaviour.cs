@@ -15,16 +15,18 @@ public class ScientistBehaviour : MonoBehaviour
     private int currentPointIndex;
 
     private GuardBehaviour[] guardsingame;
+
     private GuardBehaviour guard;
 
     public Transform[] AlarmPoints;
-
+ 
     private Vector3 aux;
     private Vector3 guardiacercano;
     private Vector3 HuidaPointsite;  
 
     public Transform player;
     public Transform[] HuidaPoint;
+
 
     //Colores/Deteccion
     private FieldOfView fieldOfView;
@@ -52,6 +54,8 @@ public class ScientistBehaviour : MonoBehaviour
     void Start()
     {
         state = State.Patrol;
+        
+
 
         currentPointIndex = 0;
         currentPoint = ScientistPoints[currentPointIndex].position;
@@ -59,7 +63,8 @@ public class ScientistBehaviour : MonoBehaviour
         guardsingame = GameObject.FindObjectsOfType<GuardBehaviour>();
 
         aIMovement = GetComponent<AIMovement>();
-        Alarm alarma=GetComponent<Alarm>();
+        
+
 
         aIMovement.target = currentPoint;
 
@@ -135,13 +140,40 @@ public class ScientistBehaviour : MonoBehaviour
 
 
     //Search
-
     private void LlamarGuardia()
     {
         aIMovement.speed=6f;
 
+
+        GuardBehaviour[] guards = GameObject.FindObjectsOfType<GuardBehaviour>();
+        float closestGuardDistance = Vector3.Distance(transform.position, guards[0].transform.position);
+        GuardBehaviour closestGuard = guards[0];
+
+        for (int i = 1; i < guards.Length; i++)
+        {
+
+            if (guards[i].transform.position == transform.position)
+            {
+
+                continue;
+
+            }
+
+            if (Vector3.Distance(transform.position, guards[i].transform.position) < closestGuardDistance)
+            {
+
+                closestGuardDistance = Vector3.Distance(transform.position, guards[i].transform.position);
+                closestGuard = guards[i];
+
+            }
+
+        } 
+        
+        aIMovement.target=closestGuard.transform.position;
+
         DetectPlayer();
 
+        AIManager.Instance.CallNearestGuard(transform.position, player.transform.position);
         if (chaseMeter > timeToChase && fieldOfView.player != null && playerSpotted)
         {   
             state=State.Chase;
@@ -153,17 +185,13 @@ public class ScientistBehaviour : MonoBehaviour
 
 
 
-
-
     //Chase
-
-
     private void PulsarBoton()
     {
         currentPointIndex = 0;
         currentPoint = AlarmPoints[currentPointIndex].position;
         aIMovement.speed=10f;
-        
+
         for(int i=1; i<AlarmPoints.Length; i++)
         {
             
@@ -182,10 +210,18 @@ public class ScientistBehaviour : MonoBehaviour
 
         aIMovement.target=currentPoint;
 
+
+
         if(Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
+
             AIManager.Instance.CientificosHuir();
-        } 
+  
+        }
+
+
+
+        
     }
 
 
