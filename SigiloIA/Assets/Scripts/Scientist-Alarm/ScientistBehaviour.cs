@@ -7,18 +7,19 @@ public class ScientistBehaviour : MonoBehaviour
     public float stoppingDistance;
     public State state;
     private AIMovement aIMovement;
-    private bool pulsado;
+
+    private bool huido;
 
     public Transform[] ScientistPoints;
-    private Vector3 scientistcurrentPoint;
-    private int scientistcurrentPointIndex;
+    private Vector3 currentPoint;
+    private int currentPointIndex;
 
 
     public Transform[] AlarmPoints;
-    private Vector3 alarmcurrentPoint;
+
     private Vector3 aux;
     private Vector3 HuidaPointsite;  
-    private int alarmcurrentPointIndex;
+
     public Transform player;
     public Transform[] HuidaPoint;
 
@@ -28,56 +29,59 @@ public class ScientistBehaviour : MonoBehaviour
     {
         state = State.Patrol;
 
-        scientistcurrentPointIndex = 0;
-        scientistcurrentPoint = ScientistPoints[scientistcurrentPointIndex].position;
+        currentPointIndex = 0;
+        currentPoint = ScientistPoints[currentPointIndex].position;
 
-        alarmcurrentPointIndex = 0;
-        alarmcurrentPoint = AlarmPoints[alarmcurrentPointIndex].position;
+
 
         aIMovement = GetComponent<AIMovement>();
         Alarm alarma=GetComponent<Alarm>();
 
-        aIMovement.target = scientistcurrentPoint;
+        aIMovement.target = currentPoint;
 
-        pulsado=true;
-        
+
+        huido = false;
         
     }
 
     // Update is called once per frame
     void Update()
-    {
-        switch (state)
+    {  
+        if(!huido)
         {
-            case State.Patrol:
-                Patrol();
-                break;
-            case State.Search:
-                LlamarGuardia();
-                break;               
-            case State.Chase:
-                PulsarBoton();
-                break;
+            switch (state)
+            {
+                case State.Patrol:
+                    Patrol();
+                    break;
+                case State.Search:
+                    LlamarGuardia();
+                    break;               
+                case State.Chase:
+                    PulsarBoton();
+                    break;
+            }
         }
+        
     }
 
 
     private void Patrol()
     {
-        if(Vector3.Distance(transform.position, scientistcurrentPoint) < stoppingDistance)
+        if(Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
-            scientistcurrentPointIndex++;
+            currentPointIndex++;
 
-             if (scientistcurrentPointIndex == ScientistPoints.Length)
+             if (currentPointIndex == ScientistPoints.Length)
             {
 
-                scientistcurrentPointIndex = 0;
+                currentPointIndex = 0;
 
             }
 
-            scientistcurrentPoint = ScientistPoints[scientistcurrentPointIndex].position;
+            currentPoint = ScientistPoints[currentPointIndex].position;
 
-            aIMovement.target = scientistcurrentPoint;
+            aIMovement.target = currentPoint;
 
             
         }
@@ -92,35 +96,40 @@ public class ScientistBehaviour : MonoBehaviour
 
     private void PulsarBoton()
     {
+        currentPointIndex = 0;
+        currentPoint = AlarmPoints[currentPointIndex].position;
         aIMovement.speed=10f;
         
         for(int i=1; i<AlarmPoints.Length; i++)
         {
-            Debug.Log("Iteracion");
+            
             aux = AlarmPoints[i].position;
-            float posicion1= Vector3.Distance(transform.position, alarmcurrentPoint);
+            float posicion1= Vector3.Distance(transform.position, currentPoint);
             float posicion2= Vector3.Distance(transform.position, aux);
 
             if(posicion2<posicion1)
             {
-                alarmcurrentPointIndex=i;
-                alarmcurrentPoint= AlarmPoints[alarmcurrentPointIndex].position;
+                currentPointIndex=i;
+                currentPoint= AlarmPoints[currentPointIndex].position;
             }
         }
-        
-        if(pulsado)
+        aIMovement.target=currentPoint;
+        if(Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
-            aIMovement.target=alarmcurrentPoint;
+
+            AIManager.Instance.CientificosHuir();
         }
         
+        
+    }
 
+    public void Huir()
+    {   
+        huido=true;
+        aIMovement.speed=10f;
+        currentPoint = HuidaPoint[0].position;
+        aIMovement.target=currentPoint;
 
-        if(Vector3.Distance(transform.position, alarmcurrentPoint) < stoppingDistance)
-        {
-            alarmcurrentPoint = HuidaPoint[0].position;
-            aIMovement.target=alarmcurrentPoint;
-            pulsado=false;
-        }  
         
     }
 

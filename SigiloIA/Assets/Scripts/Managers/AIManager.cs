@@ -10,7 +10,8 @@ public class AIManager : MonoBehaviour
 
     private float timerInChase;
     private bool timerStart;
-    public GuardBehaviour[] guardsInScene;                     // Array de guardias que hay en el nivel
+    public GuardBehaviour[] guardsInScene;
+    public ScientistBehaviour[] scientistInScene;                     // Array de guardias que hay en el nivel
 
     public static AIManager Instance { get; private set; }     // Instancia de la clase para el singleton
 
@@ -219,6 +220,26 @@ public class AIManager : MonoBehaviour
 
             // Alertamos al guardia
             closestGuard.AlertGuard(targetPosition);
+
+        }
+
+    }
+
+
+    public void CientificosHuir()
+    {
+
+        // Buscamos todos los guardias que hay en la escena
+        ScientistBehaviour[] scientists = GameObject.FindObjectsOfType<ScientistBehaviour>();
+
+        // Recorremos los guardias que hay en escena
+        for (int i = 0; i < scientists.Length; i++)
+        {
+
+            // Alarmamos al guardia
+            
+            scientists[i].Huir();
+
 
         }
 
