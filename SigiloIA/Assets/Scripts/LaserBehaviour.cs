@@ -13,6 +13,8 @@ public class LaserBehaviour : MonoBehaviour
     public State state;                                    //Estado del enemigo
     [SerializeField] GameObject ripple;                    //Efecto de comunicación con otros NPC
     [SerializeField] BoxCollider col;                      //Collider del objeto
+    AIManager manager;
+    PlayerController player;
 
     [Header("Laser attributes")]
     [Range(0, 20)] public float communicationRange;         //Alcance para la comunicación con otros NPC
@@ -32,28 +34,33 @@ public class LaserBehaviour : MonoBehaviour
     private void Start()
     {
         timer = onOffSpeed;
+        manager = FindObjectOfType<AIManager>();
+        player = FindObjectOfType<PlayerController>();
     }
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
-
-        if (timer < 0)
+        if (state != State.Chase)
         {
-            col.enabled = !col.enabled;
+            timer -= Time.deltaTime;
 
-            timer = onOffSpeed;
-
-            for (int i = 0; i < lasers.Length; i++)
+            if (timer < 0)
             {
-                if (col.enabled)
-                {
-                    lasers[i].Play();
-                }
+                col.enabled = !col.enabled;
 
-                else
+                timer = onOffSpeed;
+
+                for (int i = 0; i < lasers.Length; i++)
                 {
-                    lasers[i].Stop();
+                    if (col.enabled)
+                    {
+                        lasers[i].Play();
+                    }
+
+                    else
+                    {
+                        lasers[i].Stop();
+                    }
                 }
             }
         }
@@ -93,33 +100,33 @@ public class LaserBehaviour : MonoBehaviour
 
         if (state != State.Chase)
         {
-            state += 1;
-            onOffSpeed -= onOffReduction;
-            communicationRange *= rangeMultiplier;
+            ChangeState();
         }
-
-        UpdateColor();
 
         //Reproducir effecto
         if (state == State.Search)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
+            Debug.Log("Calling cameras and lasers");
+            manager.CallCamerasAndLasers(transform.position, communicationRange);
+            manager.CallGuard(transform.position, communicationRange, transform.position);
         }
 
         if (state == State.Chase)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.red, communicationRange);
+            manager.CallAllGuards(player.transform.position);
+            col.enabled = false;
         }
 
-        //Crear una esfera con origen en el enmigo cámara y radio el rango de comunicación
-        Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 1 << 9);
+    }
 
-        //Por cada enemigo en dicha esfera
-        foreach (Collider enemy in enemiesNearby)
-        {
-            Debug.Log("Enemy nearby found");
-        }
-
+    public void ChangeState()
+    {
+        state += 1;
+        onOffSpeed -= onOffReduction;
+        communicationRange *= rangeMultiplier;
+        UpdateColor();
     }
 
     // @GRG ---------------------------
@@ -129,8 +136,10 @@ public class LaserBehaviour : MonoBehaviour
     {
         if (other.tag is "Player")
         {
-            Debug.Log("Player spotted");
-            PlayerSpotted();
+            if (state != State.Chase)
+            {
+                PlayerSpotted();
+            }
         }
     }
 

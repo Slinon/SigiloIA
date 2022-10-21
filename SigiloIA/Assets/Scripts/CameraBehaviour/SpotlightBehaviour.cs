@@ -15,8 +15,7 @@ public class SpotlightBehaviour : MonoBehaviour
 
     [Header("Spotlight attributes")]
     public float timeToSpot = 2f;                           //tiempo que tarda en detectar al jugador
-    [Range(0,2)] public float timeToSpotReduction = 2f;     //tiempo que tarda en detectar al jugador
-    private float detectionMeter = 0;                       //"Barra" de detección
+    public float detectionMeter = 0;                       //"Barra" de detección
 
     [Header("State colors")]
     [SerializeField] private Color patrolColor;             //Color cuando el enemigo está patrullando
@@ -36,9 +35,12 @@ public class SpotlightBehaviour : MonoBehaviour
     // --------------------------------
     void Update()
     {
-        UpdateDetectionMeter();
-        UpdateEnemyState();
-        UpdateColor();
+        if (enemyParent.GetComponent<CameraBehaviour>().state != State.Chase)
+        {
+            UpdateDetectionMeter();
+            UpdateEnemyState();
+            UpdateColor();
+        }   
     }
 
     // @GRG ---------------------------
@@ -72,12 +74,6 @@ public class SpotlightBehaviour : MonoBehaviour
         {
             //Resetear la barra
             detectionMeter = 0;
-
-            if (enemyParent.GetComponent<CameraBehaviour>().state != State.Chase)
-            {
-                //Reducir el tiempo que tarda en detectar
-                timeToSpot -= timeToSpotReduction;
-            }
             
             //LLamar a PlayerSpotted
             enemyParent.GetComponent<CameraBehaviour>().PlayerSpotted();

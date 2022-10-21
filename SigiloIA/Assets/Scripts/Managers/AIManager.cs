@@ -239,4 +239,43 @@ public class AIManager : MonoBehaviour
 
     }
 
+
+    // @GRG ---------------------------------
+    // Cambiar el estado de todas las cámaras
+    // --------------------------------------
+    public void CallCamerasAndLasers(Vector3 originPosition, float communicationRange)
+    {
+        Collider[] enemiesNearby = Physics.OverlapSphere(originPosition, communicationRange, enemyLayer);
+
+        // Comprobamos si ha detectado algun enemigo
+        if (enemiesNearby.Length <= 0)
+        {
+            // No hacemos nada
+            return;
+        }
+
+        foreach (Collider cameraOrLaser in enemiesNearby)
+        {
+            //Si el enemigo es una camara
+            if (cameraOrLaser.GetComponent<CameraBehaviour>() != null)
+            {
+                //Si todavia esta en patrol
+                if (cameraOrLaser.GetComponent<CameraBehaviour>().state == State.Patrol)
+                {
+                    //Le cambiamos el estado a search
+                    cameraOrLaser.GetComponent<CameraBehaviour>().ChangeState();
+                }
+            }
+
+            else if (cameraOrLaser.GetComponent<LaserBehaviour>() != null)
+            {
+                //Si todavia esta en patrol
+                if (cameraOrLaser.GetComponent<LaserBehaviour>().state == State.Patrol)
+                {
+                    //Le cambiamos el estado a search
+                    cameraOrLaser.GetComponent<LaserBehaviour>().ChangeState();
+                }
+            }
+        }
+    }
 }
