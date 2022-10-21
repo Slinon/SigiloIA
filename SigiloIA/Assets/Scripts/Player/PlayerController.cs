@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class PlayerController : MonoBehaviour
 {
     public GameObject player;

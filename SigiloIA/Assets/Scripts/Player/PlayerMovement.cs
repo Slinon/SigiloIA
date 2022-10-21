@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Cinemachine;
 
 [RequireComponent(typeof(CharacterController), typeof(PlayerInput))] // A�ade los componentes requeridos como dependencias
 public class PlayerMovement : MonoBehaviour
 {
+    public CinemachineVirtualCamera playerCamera;
+    public CinemachineVirtualCamera RTSCamera;
+
+    private bool lockedCam = true;
+
     [SerializeField]
     private float playerSpeed = 5f; // Valor de velocidad movimiento del jugador
     [SerializeField]
@@ -39,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction = playerInput.actions["Sprint"]; // Extrae la acci�n de correr del InputSystem del jugador (Sprint)
         transformAction = playerInput.actions["Transform"]; // Extrae la acci�n de transformarse del InputSystem del jugador (Transform)
 
-        Cursor.lockState = CursorLockMode.Locked; // Oculta y bloquea el cursor en el centro de la pantalla
+        //Cursor.lockState = CursorLockMode.Locked; // Oculta y bloquea el cursor en el centro de la pantalla
     }
 
     void Update()
@@ -62,7 +68,23 @@ public class PlayerMovement : MonoBehaviour
         {
             playerController.TransformPlayer();
             MovePlayer();
-        } 
+        }
+
+        if (Input.GetMouseButtonDown(0)) // Left click
+        {
+            if (lockedCam)
+            {
+                lockedCam = false;
+                playerCamera.gameObject.SetActive(true);
+                RTSCamera.gameObject.SetActive(false);
+            }
+            else
+            {
+                lockedCam = true;
+                playerCamera.gameObject.SetActive(false);
+                RTSCamera.gameObject.SetActive(true);
+            }
+        }
     }
 
     // @EMF -----------------------
