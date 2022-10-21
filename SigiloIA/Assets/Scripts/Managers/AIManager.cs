@@ -62,7 +62,7 @@ public class AIManager : MonoBehaviour
         foreach (GuardBehaviour guard in guardsInScene)
         {
 
-            // Comprobamos si estï¿½n en el estado de perseguir
+            // Comprobamos si están en el estado de perseguir
             if (guard.state == State.Chase)
             {
 
@@ -240,23 +240,42 @@ public class AIManager : MonoBehaviour
     }
 
 
-    public void CientificosHuir()
+    // @GRG ---------------------------------
+    // Cambiar el estado de todas las cámaras
+    // --------------------------------------
+    public void CallCamerasAndLasers(Vector3 originPosition, float communicationRange)
     {
+        Collider[] enemiesNearby = Physics.OverlapSphere(originPosition, communicationRange, enemyLayer);
 
-        // Buscamos todos los guardias que hay en la escena
-        ScientistBehaviour[] scientists = GameObject.FindObjectsOfType<ScientistBehaviour>();
-
-        // Recorremos los guardias que hay en escena
-        for (int i = 0; i < scientists.Length; i++)
+        // Comprobamos si ha detectado algun enemigo
+        if (enemiesNearby.Length <= 0)
         {
-
-            // Alarmamos al guardia
-            
-            scientists[i].Huir();
-
-
+            // No hacemos nada
+            return;
         }
 
-    }
+        foreach (Collider cameraOrLaser in enemiesNearby)
+        {
+            //Si el enemigo es una camara
+            if (cameraOrLaser.GetComponent<CameraBehaviour>() != null)
+            {
+                //Si todavia esta en patrol
+                if (cameraOrLaser.GetComponent<CameraBehaviour>().state == State.Patrol)
+                {
+                    //Le cambiamos el estado a search
+                    cameraOrLaser.GetComponent<CameraBehaviour>().ChangeState();
+                }
+            }
 
+            else if (cameraOrLaser.GetComponent<LaserBehaviour>() != null)
+            {
+                //Si todavia esta en patrol
+                if (cameraOrLaser.GetComponent<LaserBehaviour>().state == State.Patrol)
+                {
+                    //Le cambiamos el estado a search
+                    cameraOrLaser.GetComponent<LaserBehaviour>().ChangeState();
+                }
+            }
+        }
+    }
 }

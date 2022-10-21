@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 5821090630367851637}
   - component: {fileID: 1023029541}
   - component: {fileID: 7544776230352975538}
-  m_Layer: 0
+  - component: {fileID: 8228315626647387094}
+  - component: {fileID: 8336338739086003945}
+  m_Layer: 9
   m_Name: LaserEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +54,7 @@ MonoBehaviour:
   state: 0
   ripple: {fileID: 3010317645411330221}
   col: {fileID: 7544776230352975538}
-  communicationRange: 10
+  communicationRange: 6
   onOffSpeed: 3
   onOffReduction: 0.5
   rangeMultiplier: 1.5
@@ -77,6 +79,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 2, z: 5.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!65 &8228315626647387094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508365790540382456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 3}
+--- !u!65 &8336338739086003945
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508365790540382456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: -3}
 --- !u!1 &1650968998211903433
 GameObject:
   m_ObjectHideFlags: 0

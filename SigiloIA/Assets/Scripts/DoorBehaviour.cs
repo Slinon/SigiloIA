@@ -67,7 +67,7 @@ public class DoorBehaviour : MonoBehaviour
                 if (keyManager.hasRedKey)
                 {
                     doorAnim.Play("doorOpening");
-                    this.enabled = false;
+                    doorTrigger.enabled = false;
                 }
 
                 else
@@ -81,7 +81,7 @@ public class DoorBehaviour : MonoBehaviour
                 if (keyManager.hasGreenKey)
                 {
                     doorAnim.Play("doorOpening");
-                    this.enabled = false;
+                    doorTrigger.enabled = false;
                 }
 
                 else
@@ -96,7 +96,7 @@ public class DoorBehaviour : MonoBehaviour
                 if (keyManager.hasBlueKey)
                 {
                     doorAnim.Play("doorOpening");
-                    this.enabled = false;
+                    doorTrigger.enabled = false;
                 }
 
                 else
