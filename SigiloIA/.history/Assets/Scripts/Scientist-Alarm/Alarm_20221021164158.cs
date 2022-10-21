@@ -8,9 +8,7 @@ public class Alarm : MonoBehaviour
     public bool alarmaFuncional;
     public Transform player;
     private ScientistBehaviour[] cientificoingame;
-    [SerializeField] private GameObject Button;
-    [SerializeField] private Material ButtonOnMat;
-    [SerializeField] private Material ButtonOffMat;
+    private GameObject Botton;
 
 
     private void Start()
@@ -50,12 +48,10 @@ public class Alarm : MonoBehaviour
         if(alarmaFuncional)
         {
             alarmaFuncional=false;
-            Button.GetComponent<MeshRenderer>().material = ButtonOffMat;
-
+            
         }else
         {
             alarmaFuncional=true;
-            Button.GetComponent<MeshRenderer>().material = ButtonOnMat;
         }
     }
 

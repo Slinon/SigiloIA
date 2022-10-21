@@ -160,6 +160,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alarmaFuncional: 1
   player: {fileID: 0}
+  Button: {fileID: 5658796362067227538}
+  ButtonOnMat: {fileID: 2100000, guid: efc859d101ced2b4cad37a5b0f48f814, type: 2}
+  ButtonOffMat: {fileID: 2100000, guid: 490106d45290ed047847dfccbb1951bc, type: 2}
 --- !u!1 &5658796362067227538
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +225,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: efc859d101ced2b4cad37a5b0f48f814, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

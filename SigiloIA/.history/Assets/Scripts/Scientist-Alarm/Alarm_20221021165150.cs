@@ -55,7 +55,7 @@ public class Alarm : MonoBehaviour
         }else
         {
             alarmaFuncional=true;
-            Button.GetComponent<MeshRenderer>().material = ButtonOnMat;
+            Button.GetComponent<MeshRenderer>().materials[0] = ButtonOnMat;
         }
     }
 
