@@ -3,6 +3,8 @@ using Cinemachine;
 
 public class PanAndZoom : MonoBehaviour
 {
+    public Transform playerTransform;
+
     [SerializeField]
     private float panSpeed = 2f;
     [SerializeField]
@@ -11,6 +13,8 @@ public class PanAndZoom : MonoBehaviour
     private float zoomInMax = 40f;
     [SerializeField]
     private float zoomOutMax = 90f;
+    [SerializeField]
+    private float viewRange = 5f;
 
     private CinemachineInputProvider inputProvider;
     private CinemachineVirtualCamera virtualCamera;
@@ -25,7 +29,7 @@ public class PanAndZoom : MonoBehaviour
 
     void Start()
     {
-        virtualCamera.m_Lens.FieldOfView = 80f;
+        
     }
 
     void Update()
@@ -57,11 +61,11 @@ public class PanAndZoom : MonoBehaviour
     {
         Vector3 direction = Vector2.zero;
 
-        if (y >= Screen.height * .95f) { direction.z += 1; }
-        else if (y <= Screen.height * .05f) { direction.z -= 1; }
+        if (y >= Screen.height * .95f & cameraTransform.position.z <= 40f & cameraTransform.position.z < playerTransform.position.z + viewRange) { direction.z += 1; }
+        else if (y <= Screen.height * .05f & cameraTransform.position.z >= -40f & cameraTransform.position.z > playerTransform.position.z - viewRange) { direction.z -= 1; }
 
-        if (x >= Screen.width * .95f) { direction.x += 1; }
-        else if (x <= Screen.width * .05f) { direction.x -= 1; }
+        if (x >= Screen.width * .95f & cameraTransform.position.x <= 40f & cameraTransform.position.x < playerTransform.position.x + viewRange) { direction.x += 1; }
+        else if (x <= Screen.width * .05f & cameraTransform.position.x >= -40f & cameraTransform.position.x > playerTransform.position.x - viewRange) { direction.x -= 1; }
 
         return direction;
     }

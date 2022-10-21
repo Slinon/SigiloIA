@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public CinemachineVirtualCamera playerCamera;
     public CinemachineVirtualCamera RTSCamera;
 
+    private Transform playerTransform;
+
     private bool lockedCam = true;
 
     [SerializeField]
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        playerTransform = GetComponent<Transform>();
 
         playerController = GetComponent<PlayerController>();
 
@@ -80,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                RTSCamera.transform.position = new Vector3(playerTransform.position.x, 27f, playerTransform.position.z);
+
                 lockedCam = true;
                 playerCamera.gameObject.SetActive(false);
                 RTSCamera.gameObject.SetActive(true);
