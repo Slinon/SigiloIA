@@ -81,11 +81,12 @@ public class CameraBehaviour : MonoBehaviour
     public void PlayerSpotted()
     {
 
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //ESTO ES POCHO, CADA COSA DEBERIA SER UN
-        //METODO PRIVADO Y NO SER ESTO UN POPURRI
-        //SON LAS 2 AM LO ARREGLO OTRO DIA XD
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (state != State.Chase)
+        {
+            state += 1;
+            rotationSpeed *= speedMultiplier;
+            communicationRange *= rangeMultiplier;
+        }
 
         //Reproducir effecto
         if (state == State.Search)
@@ -106,11 +107,6 @@ public class CameraBehaviour : MonoBehaviour
         {
             Debug.Log("Enemy nearby found");
         }
-
-        //Ajustar velocidad y rango de comunicación
-        rotationSpeed *= speedMultiplier;
-        communicationRange *= rangeMultiplier;
-
     }
 
     // @GRG ---------------------------
