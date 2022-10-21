@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 28a6bfb538608934eb11f635b81d9f35, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4942,7 +4942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6ca8baf240ad547a1ea743f3166166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyColor: 0
+  keyColor: 1
   speed: 30
   particles: {fileID: 2721681917341465462}
   cardMesh: {fileID: 2721681917060060991}

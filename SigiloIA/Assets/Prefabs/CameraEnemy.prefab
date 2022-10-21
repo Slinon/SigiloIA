@@ -174,7 +174,7 @@ MonoBehaviour:
   POI: {fileID: 870016843}
   rotationAngle: 180
   rotationSpeed: 20
-  communicationRange: 6
+  communicationRange: 8
   speedMultiplier: 1.5
   rangeMultiplier: 1.5
 --- !u!65 &1149589970
