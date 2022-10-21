@@ -39,6 +39,10 @@ public class GuardBehaviour : MonoBehaviour
     public Color chaseColor;                        // Color de la linea de vision cuando el guardia esta persiguiendo al jugador
     public Transform player;                        // Posicion del jugador
 
+    [Header("Icons")]
+    public GameObject exclamationMark;
+    public GameObject questionMark;
+
     // @IGM -----------------------------------------
     // Start is called before the first frame update.
     // ----------------------------------------------
@@ -110,6 +114,9 @@ public class GuardBehaviour : MonoBehaviour
         // Marcamos que se ha detectado al jugador
         playerSpotted = true;
 
+        // Actualizamos la velocidad
+        aIMovement.IncreaseSpeed();
+
         // Actualizamos la posici�n del jugador
         currentPoint = player.position;
         aIMovement.target = currentPoint;
@@ -128,6 +135,9 @@ public class GuardBehaviour : MonoBehaviour
         // Marcamos que se ha detectado al jugador
         playerSpotted = true;
 
+        // Actualizamos la velocidad
+        aIMovement.DecreaseSpeed();
+
         // Actualizamos la posici�n del jugador
         currentPoint = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
         aIMovement.target = currentPoint;
@@ -139,6 +149,9 @@ public class GuardBehaviour : MonoBehaviour
 
         // Cambiamos el estado de la patrulla
         state = State.Patrol;
+
+        // Actualizamos la velocidad
+        aIMovement.DecreaseSpeed();
 
         // Actualizamos la posici�n del jugador
         currentPoint = patrolPoints[currentPointIndex].position;
@@ -154,6 +167,10 @@ public class GuardBehaviour : MonoBehaviour
     // --------------------------------------------
     private void ChasePlayer()
     {
+
+        // Cambiamos el ícono
+        questionMark.SetActive(false);
+        exclamationMark.SetActive(true);
 
         // Actualizamos la posici�n del jugador
         currentPoint = player.position;
@@ -225,6 +242,10 @@ public class GuardBehaviour : MonoBehaviour
     private void Patrol()
     {
 
+        // Cambiamos el ícono
+        questionMark.SetActive(false);
+        exclamationMark.SetActive(false);
+
         // Comprobamos si hemos llegado al siguiente punto de la patrulla
         if (Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
@@ -277,6 +298,9 @@ public class GuardBehaviour : MonoBehaviour
     // --------------------------------------------------
     private void SearchPlayer()
     {
+        // Cambiamos el ícono
+        questionMark.SetActive(true);
+        exclamationMark.SetActive(false);
 
         // Comprobamos si hemos llegado al punto donde se vio al jugador por ultima vez
         if (Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
@@ -310,7 +334,6 @@ public class GuardBehaviour : MonoBehaviour
 
             // Avisamos a todos los guardias y activamos las alarmas
             AIManager.Instance.CallAllGuards(fieldOfView.player.position);
-            AIManager.Instance.CientificosHuir();
 
         }
 

@@ -408,12 +408,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 1312846818131573718}
-  player: {fileID: 1312846818131573715}
   clips:
   - {fileID: 8300000, guid: 25524af84cb3b444b956f44f5d1f26cb, type: 3}
   - {fileID: 8300000, guid: 48df59970a919ea4a8a78d2fea1d4f5d, type: 3}
   radius: 4
-  enemyLayer: 9
 --- !u!82 &1438608594387164564
 AudioSource:
   m_ObjectHideFlags: 0
@@ -587,7 +585,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c890d49ac872714ea6e05c00e4f12e1, type: 2}
+  - {fileID: 2100000, guid: dd2770637df63d049bdffb8eaea40617, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

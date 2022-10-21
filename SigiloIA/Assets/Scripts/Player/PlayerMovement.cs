@@ -62,7 +62,10 @@ public class PlayerMovement : MonoBehaviour
         {
             playerController.TransformPlayer();
             MovePlayer();
-        } 
+        } else
+        {
+            PlayerSoundEffects.instance.isRunning = false;
+        }
     }
 
     // @EMF -----------------------
@@ -75,11 +78,16 @@ public class PlayerMovement : MonoBehaviour
         if (sprintAction.IsPressed())
         {
             speed = playerSprint;
+            PlayerSoundEffects.instance.isRunning = true;
+
         }
         else
         {
             speed = playerSpeed;
+            PlayerSoundEffects.instance.isRunning = false;
         }
+
+
 
         // Obtiene la direcci�n de movimiento dada por el Input del jugador (WASD) horizaontal/vertical
         Vector3 move = new Vector3(moveAction.ReadValue<Vector2>().x, 0f, moveAction.ReadValue<Vector2>().y);

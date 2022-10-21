@@ -10,10 +10,12 @@ public class AIMovement : MonoBehaviour
     [HideInInspector]
     public Vector3 target;                              // Objetivo del movimiento
     public bool displayPathGizmos;                      // Booleano para mostrar el camino
-    public float speed;                                 // Velocidad de movimiento
+    public float patrolSpeed;                           // Velocidad de movimiento cuando el enemigo esta patrullando
+    public float alarmSpeed;                            // Velocidad de movimiento cuando el enemigo esta en persecucion
     public float turnSpeed;                             // Velocidad de rotacion
     public float turnDistance;                          // Distancia de volteado
-    
+
+    private float speed;                                // Velocidad de movimiento
     private Path path;                                  // Camino a seguir
 
     // @IGM -----------------------------------------
@@ -22,8 +24,33 @@ public class AIMovement : MonoBehaviour
     void Start()
     {
 
+        // Asignamos la velocidad inicial
+        speed = patrolSpeed;
+
         // Lanzamos la corrutina de movimiento
         StartCoroutine(UpdatePath());
+
+    }
+
+    // @IGM --------------------------------------------
+    // Metodo para disminuir la velocidad de movimiento.
+    // -------------------------------------------------
+    public void DecreaseSpeed()
+    {
+
+        // Actualizamos la velocidad
+        speed = patrolSpeed;
+
+    }
+
+    // @IGM -------------------------------------------
+    // Metodo para aumentar la velocidad de movimiento.
+    // ------------------------------------------------
+    public void IncreaseSpeed()
+    {
+
+        // Actualizamos la velocidad
+        speed = alarmSpeed;
 
     }
 
