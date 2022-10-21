@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4211282374118085720}
   - component: {fileID: 7514366819854005340}
   - component: {fileID: 6987866997418734225}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 2319175602472200078}
   - component: {fileID: 2635677842854239103}
   - component: {fileID: 5164279778648575412}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 5090264015087388923}
   - component: {fileID: 1116371372989643688}
   - component: {fileID: 3510464073842737540}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FieldOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4830542184031165586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.75, y: 1, z: 39.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -288,7 +288,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2841978552343438720}
-  m_Layer: 0
+  - component: {fileID: 1797194519}
+  - component: {fileID: 1797194520}
+  - component: {fileID: 1797194521}
+  m_Layer: 11
   m_Name: Scientist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,6 +315,87 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1797194519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928568064363996755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1659d0b4911f314687d4fdb50d0cefd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 15
+  viewAngle: 90
+  player: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  viewMeshFilter: {fileID: 1116371372989643688}
+  meshRenderer: {fileID: 3510464073842737540}
+  meshResolution: 0.4
+  edgeResolveIterations: 9
+  edgeDistThreshold: 0.5
+--- !u!114 &1797194520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928568064363996755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7d3bf22bcc96143bf2c0dac5670c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  displayPathGizmos: 0
+  patrolSpeed: 3
+  alarmSpeed: 10
+  turnSpeed: 3
+  turnDistance: 0.3
+  speed: 0
+--- !u!114 &1797194521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928568064363996755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5105f56bab1b0ba4fb8b6332b8dd750f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoppingDistance: 2
+  state: 0
+  ScientistPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  AlarmPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player: {fileID: 0}
+  HuidaPoint:
+  - {fileID: 0}
+  patrolColor: {r: 0, g: 0, b: 0, a: 0}
+  searchColor: {r: 0, g: 0, b: 0, a: 0}
+  timeToSearch: 0
+  chaseColor: {r: 0, g: 0, b: 0, a: 0}
+  timeToChase: 0
+  timeSearching: 0
+  currenttimeSearching: 0
+  exclamationMark: {fileID: 6689718553641115817, guid: f512612b4e82d894b97fa50af4c11fac, type: 3}
+  questionMark: {fileID: 2058614141192969809, guid: 5d7df5409e600234e812d9f86c895f6b, type: 3}
 --- !u!1 &8154648528922738386
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +408,7 @@ GameObject:
   - component: {fileID: 4115006526500468285}
   - component: {fileID: 3884756095095159582}
   - component: {fileID: 7877574447625244464}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8154648528922738386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &870016842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 870016843}
+  m_Layer: 0
+  m_Name: CameraPOI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &870016843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870016842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.5, z: -2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2168240735999606255}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357354421977226661
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,9 +127,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2168240735999606255}
   - component: {fileID: 5580801300775450145}
-  m_Layer: 0
+  - component: {fileID: 1149589970}
+  m_Layer: 9
   m_Name: CameraEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,6 +150,7 @@ Transform:
   - {fileID: 1845800794952989706}
   - {fileID: 5648664543430667320}
   - {fileID: 2168240736077609009}
+  - {fileID: 870016843}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,11 +171,25 @@ MonoBehaviour:
     los dem\xE1s enemigos en rango (CommunicationRange)."
   state: 0
   ripple: {fileID: 5648664543430667321}
+  POI: {fileID: 870016843}
   rotationAngle: 180
   rotationSpeed: 20
-  communicationRange: 10
-  speedMultiplier: 2
+  communicationRange: 6
+  speedMultiplier: 1.5
   rangeMultiplier: 1.5
+--- !u!65 &1149589970
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168240735999606254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2168240736077609008
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3107636810860145436, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3107636810860145436, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_LocalScale.z
@@ -323,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: timeToSpot
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: enemyParent
@@ -331,7 +378,7 @@ PrefabInstance:
       objectReference: {fileID: 2168240735999606254}
     - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: timeToSpotReduction
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}

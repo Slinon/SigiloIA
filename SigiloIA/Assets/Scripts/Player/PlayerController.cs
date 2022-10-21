@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject player;
     public float closeDistance = 5f;
+    public float closeAlarmDistance = 1f;
 
     public Text T_Text;
+    public Text E_Text;
 
     public string CheckClosestObject()
     {
@@ -20,6 +22,20 @@ public class PlayerController : MonoBehaviour
             if (Vector3.Distance(player.transform.position, taggedObjects[i].transform.position) <= closeDistance)
             {
                 return taggedObjects[i].name;
+            }
+        }
+        return null;
+    }
+
+    public GameObject CheckClosestAlarm()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, closeAlarmDistance);
+
+        foreach(var hitCollider in hitColliders)
+        {
+            if(hitCollider.transform.tag == "Alarm")
+            {
+                return hitCollider.gameObject;
             }
         }
         return null;
@@ -62,8 +78,22 @@ public class PlayerController : MonoBehaviour
         player.gameObject.layer = 6;
     }
 
+    public void DeactivateAlarm(GameObject alarm)
+    {
+        Debug.Log("deactivating alarm: " + alarm);
+        Alarm alarmScript = alarm.GetComponent<Alarm>();
+        if(alarmScript.alarmaFuncional)
+        {
+            alarmScript.DesactivarAlarma();
+        }
+    }
+
     public void ShowTButtonText(bool value)
     {
         T_Text.enabled = value;
+    }
+
+    public void ShowAlarmText(bool value){
+        E_Text.enabled = value;
     }
 }

@@ -12,6 +12,9 @@ public class CameraBehaviour : MonoBehaviour
     [TextArea] public string description;                  //Breve descripción del código para otros programadores
     public State state;                                    //Estado del enemigo
     [SerializeField] GameObject ripple;                    //Efecto de comunicación con otros NPC
+    [SerializeField] Transform POI;                        //Punto de interés al que llamar a los guardias
+    AIManager manager;
+    PlayerController player;
 
     [Header("Camera attributes")]
     [SerializeField] private float rotationAngle;           //Barrido de la cámara (en grados)
@@ -29,6 +32,8 @@ public class CameraBehaviour : MonoBehaviour
     {
         from = transform.rotation.eulerAngles.y - rotationAngle / 2;
         to = transform.rotation.eulerAngles.y + rotationAngle / 2;
+        manager = FindObjectOfType<AIManager>();
+        player = FindObjectOfType<PlayerController>();
 
         //if (from < 0) from = 360 + from;
         //if (to > 360) to = to - 360;
@@ -39,7 +44,7 @@ public class CameraBehaviour : MonoBehaviour
     // --------------------------------
     void Update()
     {
-        RotateCamera();
+        if (state != State.Chase) RotateCamera();
     }
 
     // @GRG ---------------------------
@@ -80,37 +85,31 @@ public class CameraBehaviour : MonoBehaviour
     // --------------------------------
     public void PlayerSpotted()
     {
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //ESTO ES POCHO, CADA COSA DEBERIA SER UN
-        //METODO PRIVADO Y NO SER ESTO UN POPURRI
-        //SON LAS 2 AM LO ARREGLO OTRO DIA XD
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (state != State.Chase)
+        {
+            ChangeState();
+        }
 
         //Reproducir effecto
         if (state == State.Search)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
+            manager.CallCamerasAndLasers(transform.position + new Vector3 (0, -5, 0), communicationRange);
+            manager.CallGuard(transform.position + new Vector3(0, -5, 0), communicationRange, POI.position);
         }
 
         if (state == State.Chase)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.red, communicationRange);
-        }
+            manager.CallAllGuards(player.transform.position);
+        }       
+    }
 
-        //Crear una esfera con origen en el enmigo cámara y radio el rango de comunicación
-        Collider[] enemiesNearby = Physics.OverlapSphere(transform.position, communicationRange, 1 << 9);
-
-        //Por cada enemigo en dicha esfera
-        foreach (Collider enemy in enemiesNearby)
-        {
-            Debug.Log("Enemy nearby found");
-        }
-
-        //Ajustar velocidad y rango de comunicación
+    public void ChangeState()
+    {
+        state += 1;
         rotationSpeed *= speedMultiplier;
         communicationRange *= rangeMultiplier;
-
     }
 
     // @GRG ---------------------------

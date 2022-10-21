@@ -8,9 +8,9 @@ public class AIManager : MonoBehaviour
     public float timeInChase;                                   // Tiempo que deben estar los guardias persiguiendo al jugador
     public LayerMask enemyLayer;                                // Layer de los enemigos
 
-    private float timerInChase;
-    private bool timerStart;
-    public GuardBehaviour[] guardsInScene;                     // Array de guardias que hay en el nivel
+    private float timerInChase;                                 // Tiempo actual si estar dentro del campo de vision de los guardias
+    private bool timerStart;                                    // Booleano para indicar que el timer puede empezar
+    private GuardBehaviour[] guardsInScene;                     // Array de guardias que hay en el nivel
 
     public static AIManager Instance { get; private set; }     // Instancia de la clase para el singleton
 
@@ -58,25 +58,31 @@ public class AIManager : MonoBehaviour
     private void Update()
     {
 
+        // Recorremos la lista de guardias
         foreach (GuardBehaviour guard in guardsInScene)
         {
 
+            // Comprobamos si están en el estado de perseguir
             if (guard.state == State.Chase)
             {
 
+                // Comprobamos si algun guardia tiene la vision del jugador
                 if (guard.FieldOfView.player != null)
                 {
 
+                    // Reseteamos el timer
                     timerInChase = timeInChase;
 
                 }
 
+                // Marcamos que el timer puede empezar
                 timerStart = true;
 
             }
             else
             {
 
+                // Si no estan en estado de perseguir desactivamos el timer
                 timerStart = false;
                 timerInChase = timeInChase;
 
@@ -84,19 +90,24 @@ public class AIManager : MonoBehaviour
 
         }
 
+        // Comprobamos si el timer esta activado
         if (timerStart)
         {
 
+            // Actualizamos el timer
             timerInChase -= Time.deltaTime;
 
         }
 
+        // Comprobamos si el timer ha llegado a 0
         if (timerInChase <= 0)
         {
 
+            // Recorremos la lista de guardias
             foreach (GuardBehaviour guard in guardsInScene)
             {
 
+                // Calmamos al guardia
                 guard.CalmGuard();
 
             }
@@ -174,6 +185,9 @@ public class AIManager : MonoBehaviour
 
         }
 
+        // Llamamos al guardia mas cercano para que ayude a este guardia
+        CallNearestGuard(closestGuard.transform.position, targetPosition);
+
     }
 
     // @IGM -----------------------------------------------------
@@ -186,11 +200,11 @@ public class AIManager : MonoBehaviour
         GuardBehaviour[] guards = GameObject.FindObjectsOfType<GuardBehaviour>();
 
         // Calculamos la distancia entre el guardia y la posicion dada
-        float closestGuardDistance = Vector3.Distance(originPosition, guards[0].transform.position);
-        GuardBehaviour closestGuard = guards[0];
+        float closestGuardDistance = Mathf.Infinity;
+        GuardBehaviour closestGuard = null;
 
         // Recorremos los guardias que hay en escena
-        for (int i = 1; i < guards.Length; i++)
+        for (int i = 0; i < guards.Length; i++)
         {
 
             // Comprobamos si el guardia es el guardia que ha hecho la llamada
@@ -214,9 +228,10 @@ public class AIManager : MonoBehaviour
 
         }
 
+        // Comprobamos si se ha encontrado al guardia mas cercano
         if (closestGuard != null && closestGuard.state != State.Chase)
         {
-
+            
             // Alertamos al guardia
             closestGuard.AlertGuard(targetPosition);
 
@@ -224,4 +239,61 @@ public class AIManager : MonoBehaviour
 
     }
 
+    public void CientificosHuir()
+    {
+
+        // Buscamos todos los guardias que hay en la escena
+        ScientistBehaviour[] scientists = GameObject.FindObjectsOfType<ScientistBehaviour>();
+
+        // Recorremos los guardias que hay en escena
+        for (int i = 0; i < scientists.Length; i++)
+        {
+
+            // Alarmamos al guardia
+
+            scientists[i].Huir();
+
+
+        }
+
+    }
+
+    // @GRG ---------------------------------
+    // Cambiar el estado de todas las cámaras
+    // --------------------------------------
+    public void CallCamerasAndLasers(Vector3 originPosition, float communicationRange)
+    {
+        Collider[] enemiesNearby = Physics.OverlapSphere(originPosition, communicationRange, enemyLayer);
+
+        // Comprobamos si ha detectado algun enemigo
+        if (enemiesNearby.Length <= 0)
+        {
+            // No hacemos nada
+            return;
+        }
+
+        foreach (Collider cameraOrLaser in enemiesNearby)
+        {
+            //Si el enemigo es una camara
+            if (cameraOrLaser.GetComponent<CameraBehaviour>() != null)
+            {
+                //Si todavia esta en patrol
+                if (cameraOrLaser.GetComponent<CameraBehaviour>().state == State.Patrol)
+                {
+                    //Le cambiamos el estado a search
+                    cameraOrLaser.GetComponent<CameraBehaviour>().ChangeState();
+                }
+            }
+
+            else if (cameraOrLaser.GetComponent<LaserBehaviour>() != null)
+            {
+                //Si todavia esta en patrol
+                if (cameraOrLaser.GetComponent<LaserBehaviour>().state == State.Patrol)
+                {
+                    //Le cambiamos el estado a search
+                    cameraOrLaser.GetComponent<LaserBehaviour>().ChangeState();
+                }
+            }
+        }
+    }
 }

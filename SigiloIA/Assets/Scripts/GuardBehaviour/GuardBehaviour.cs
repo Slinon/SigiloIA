@@ -10,13 +10,13 @@ public class GuardBehaviour : MonoBehaviour
     [HideInInspector]
     public State state;                             // Estado del guardia
 
-    private AIMovement aIMovement;                  // Gestión de movimiento de la IA
+    private AIMovement aIMovement;                  // Gestiï¿½n de movimiento de la IA
     private FieldOfView fieldOfView;                // Campo de vision del guardia
     public FieldOfView FieldOfView
     {
         get { return fieldOfView; }
     }
-    private Vector3 currentPoint;                   // Posición destino dentro de la patrulla
+    private Vector3 currentPoint;                   // Posiciï¿½n destino dentro de la patrulla
     private bool playerSpotted;                     // Booleano que indica si ya se ha visto al jugador
 
     [Header("Patrol")]
@@ -38,6 +38,10 @@ public class GuardBehaviour : MonoBehaviour
     [Header("Chase")]
     public Color chaseColor;                        // Color de la linea de vision cuando el guardia esta persiguiendo al jugador
     public Transform player;                        // Posicion del jugador
+
+    [Header("Icons")]
+    public GameObject exclamationMark;
+    public GameObject questionMark;
 
     // @IGM -----------------------------------------
     // Start is called before the first frame update.
@@ -110,7 +114,10 @@ public class GuardBehaviour : MonoBehaviour
         // Marcamos que se ha detectado al jugador
         playerSpotted = true;
 
-        // Actualizamos la posición del jugador
+        // Actualizamos la velocidad
+        aIMovement.IncreaseSpeed();
+
+        // Actualizamos la posiciï¿½n del jugador
         currentPoint = player.position;
         aIMovement.target = currentPoint;
 
@@ -128,7 +135,10 @@ public class GuardBehaviour : MonoBehaviour
         // Marcamos que se ha detectado al jugador
         playerSpotted = true;
 
-        // Actualizamos la posición del jugador
+        // Actualizamos la velocidad
+        aIMovement.DecreaseSpeed();
+
+        // Actualizamos la posiciï¿½n del jugador
         currentPoint = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
         aIMovement.target = currentPoint;
 
@@ -140,7 +150,10 @@ public class GuardBehaviour : MonoBehaviour
         // Cambiamos el estado de la patrulla
         state = State.Patrol;
 
-        // Actualizamos la posición del jugador
+        // Actualizamos la velocidad
+        aIMovement.DecreaseSpeed();
+
+        // Actualizamos la posiciï¿½n del jugador
         currentPoint = patrolPoints[currentPointIndex].position;
         aIMovement.target = currentPoint;
 
@@ -155,7 +168,11 @@ public class GuardBehaviour : MonoBehaviour
     private void ChasePlayer()
     {
 
-        // Actualizamos la posición del jugador
+        // Cambiamos el Ã­cono
+        questionMark.SetActive(false);
+        exclamationMark.SetActive(true);
+
+        // Actualizamos la posiciï¿½n del jugador
         currentPoint = player.position;
         aIMovement.target = currentPoint;
 
@@ -179,7 +196,7 @@ public class GuardBehaviour : MonoBehaviour
         if (!playerSpotted)
         {
 
-            // Comprobamos si el jugador está dentro del rango de visión
+            // Comprobamos si el jugador estï¿½ dentro del rango de visiï¿½n
             if (fieldOfView.player != null && detectionMeter < timeToSearch)
             {
 
@@ -225,6 +242,10 @@ public class GuardBehaviour : MonoBehaviour
     private void Patrol()
     {
 
+        // Cambiamos el Ã­cono
+        questionMark.SetActive(false);
+        exclamationMark.SetActive(false);
+
         // Comprobamos si hemos llegado al siguiente punto de la patrulla
         if (Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
@@ -258,7 +279,7 @@ public class GuardBehaviour : MonoBehaviour
             // Alertamos al guardia
             AlertGuard(fieldOfView.player.position);
 
-            // Avisamos al guardia más cercano para que investigue con el
+            // Avisamos al guardia mï¿½s cercano para que investigue con el
             AIManager.Instance.CallNearestGuard(transform.position, fieldOfView.player.position);
 
         }
@@ -273,10 +294,13 @@ public class GuardBehaviour : MonoBehaviour
     }
 
     // @IGM ---------------------------------------------
-    // Metodo para realizar la investigación del guardia.
+    // Metodo para realizar la investigaciï¿½n del guardia.
     // --------------------------------------------------
     private void SearchPlayer()
     {
+        // Cambiamos el Ã­cono
+        questionMark.SetActive(true);
+        exclamationMark.SetActive(false);
 
         // Comprobamos si hemos llegado al punto donde se vio al jugador por ultima vez
         if (Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
