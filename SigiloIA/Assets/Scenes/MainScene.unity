@@ -38695,7 +38695,7 @@ PrefabInstance:
       objectReference: {fileID: 2091071584}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: timeToChase
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: chaseColor.a
@@ -38711,7 +38711,7 @@ PrefabInstance:
       objectReference: {fileID: 515196027}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: timeToSearch
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: patrolColor.a
@@ -40435,7 +40435,7 @@ PrefabInstance:
       objectReference: {fileID: 2091071584}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: timeToChase
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: chaseColor.a
@@ -40451,7 +40451,7 @@ PrefabInstance:
       objectReference: {fileID: 1712589019}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: timeToSearch
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: patrolColor.a
@@ -40482,9 +40482,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
+      propertyPath: timeSearching
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: exclamationMark
       value: 
       objectReference: {fileID: 958395329}
+    - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
+      propertyPath: currenttimeSearching
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1797194521, guid: e9b4b6d734297524ea9651d5e118cc78, type: 3}
       propertyPath: HuidaPoint.Array.data[0]
       value: 

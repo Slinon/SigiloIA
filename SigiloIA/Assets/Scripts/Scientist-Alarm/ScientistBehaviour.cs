@@ -44,6 +44,7 @@ public class ScientistBehaviour : MonoBehaviour
     private bool playerSpotted;
     private float detectionMeter;
     public float timeSearching;
+    public float currenttimeSearching;
 
     private float chaseMeter;   
 
@@ -181,12 +182,22 @@ public class ScientistBehaviour : MonoBehaviour
         aIMovement.target=closestGuard.transform.position;
 
         DetectPlayer();
-
+        
         AIManager.Instance.CallNearestGuard(transform.position, player.transform.position);
+
         if (chaseMeter > timeToChase && fieldOfView.player != null && playerSpotted)
         {   
             state=State.Chase;
             
+        }
+        
+        if(currenttimeSearching < timeSearching)
+        {
+            transform.Rotate(0, aIMovement.turnSpeed * 5 * Time.deltaTime, 0, Space.Self);
+            currenttimeSearching += Time.deltaTime;
+        }else
+        {
+            CalmScientific();
         }
             
     }
@@ -197,6 +208,7 @@ public class ScientistBehaviour : MonoBehaviour
     //Chase
     private void PulsarBoton()
     {
+        timeSearching=5;
         questionMark.SetActive(false);
         exclamationMark.SetActive(true);
         currentPointIndex = 0;
@@ -257,7 +269,8 @@ public class ScientistBehaviour : MonoBehaviour
         state = State.Patrol;
         currentPoint = ScientistPoints[currentPointIndex].position;
         aIMovement.target = currentPoint;
-
+        currenttimeSearching = 0;
+        playerSpotted = false;
 
     }
 
@@ -317,6 +330,7 @@ public class ScientistBehaviour : MonoBehaviour
             else if (detectionMeter > 0)
             {
                 detectionMeter -= Time.deltaTime * 2;
+                
             }
 
         }
@@ -329,6 +343,7 @@ public class ScientistBehaviour : MonoBehaviour
             else if (chaseMeter > 0)
             {      
                 chaseMeter -= Time.deltaTime * 2;
+                
             }
 
         }
