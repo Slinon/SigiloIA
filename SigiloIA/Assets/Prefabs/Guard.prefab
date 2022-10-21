@@ -347,7 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   displayPathGizmos: 0
-  speed: 5
+  patrolSpeed: 5
+  alarmSpeed: 9
   turnSpeed: 5
   turnDistance: 0.1
 --- !u!114 &4160241629714725114
@@ -373,7 +374,7 @@ MonoBehaviour:
   patrolColor: {r: 1, g: 1, b: 1, a: 0.45490196}
   timeToChase: 1
   searchColor: {r: 1, g: 0.96448624, b: 0, a: 0.49803922}
-  timeSearching: 10
+  timeSearching: 20
   chaseColor: {r: 1, g: 0, b: 0, a: 0.49803922}
   player: {fileID: 0}
   exclamationMark: {fileID: 2942342969098509678}
@@ -390,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1659d0b4911f314687d4fdb50d0cefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 30
+  viewRadius: 10
   viewAngle: 130
   player: {fileID: 0}
   playerMask:

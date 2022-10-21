@@ -72,6 +72,7 @@ public class ScientistBehaviour : MonoBehaviour
 
             scientistcurrentPoint = ScientistPoints[scientistcurrentPointIndex].position;
 
+            aIMovement.DecreaseSpeed();
             aIMovement.target = scientistcurrentPoint;
         }
     }
@@ -79,7 +80,7 @@ public class ScientistBehaviour : MonoBehaviour
     private void ActivarAlarma()
     {
         
-        aIMovement.speed=10f;
+        aIMovement.IncreaseSpeed();
         for(int i=1; i<AlarmPoints.Length; i++)
         {
             aux = AlarmPoints[i].position;
@@ -103,7 +104,7 @@ public class ScientistBehaviour : MonoBehaviour
 
     private void Huir()
     {
-        aIMovement.speed=10f;
+        aIMovement.IncreaseSpeed();
         AIManager.Instance.CallAllGuards(player.position);
         aIMovement.target= HuidaPoint[0].position;
     }

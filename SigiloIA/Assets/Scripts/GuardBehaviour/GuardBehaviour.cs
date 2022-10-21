@@ -114,6 +114,9 @@ public class GuardBehaviour : MonoBehaviour
         // Marcamos que se ha detectado al jugador
         playerSpotted = true;
 
+        // Actualizamos la velocidad
+        aIMovement.IncreaseSpeed();
+
         // Actualizamos la posici�n del jugador
         currentPoint = player.position;
         aIMovement.target = currentPoint;
@@ -132,6 +135,9 @@ public class GuardBehaviour : MonoBehaviour
         // Marcamos que se ha detectado al jugador
         playerSpotted = true;
 
+        // Actualizamos la velocidad
+        aIMovement.DecreaseSpeed();
+
         // Actualizamos la posici�n del jugador
         currentPoint = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
         aIMovement.target = currentPoint;
@@ -143,6 +149,9 @@ public class GuardBehaviour : MonoBehaviour
 
         // Cambiamos el estado de la patrulla
         state = State.Patrol;
+
+        // Actualizamos la velocidad
+        aIMovement.DecreaseSpeed();
 
         // Actualizamos la posici�n del jugador
         currentPoint = patrolPoints[currentPointIndex].position;
