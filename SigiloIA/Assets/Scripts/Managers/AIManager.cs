@@ -239,6 +239,24 @@ public class AIManager : MonoBehaviour
 
     }
 
+    public void CientificosHuir()
+    {
+
+        // Buscamos todos los guardias que hay en la escena
+        ScientistBehaviour[] scientists = GameObject.FindObjectsOfType<ScientistBehaviour>();
+
+        // Recorremos los guardias que hay en escena
+        for (int i = 0; i < scientists.Length; i++)
+        {
+
+            // Alarmamos al guardia
+
+            scientists[i].Huir();
+
+
+        }
+
+    }
 
     // @GRG ---------------------------------
     // Cambiar el estado de todas las cámaras
