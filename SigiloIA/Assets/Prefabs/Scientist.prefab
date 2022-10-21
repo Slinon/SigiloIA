@@ -359,6 +359,7 @@ MonoBehaviour:
   alarmSpeed: 10
   turnSpeed: 3
   turnDistance: 0.3
+  speed: 0
 --- !u!114 &1797194521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +387,15 @@ MonoBehaviour:
   player: {fileID: 0}
   HuidaPoint:
   - {fileID: 0}
+  patrolColor: {r: 0, g: 0, b: 0, a: 0}
+  searchColor: {r: 0, g: 0, b: 0, a: 0}
+  timeToSearch: 0
+  chaseColor: {r: 0, g: 0, b: 0, a: 0}
+  timeToChase: 0
+  timeSearching: 0
+  currenttimeSearching: 0
+  exclamationMark: {fileID: 6689718553641115817, guid: f512612b4e82d894b97fa50af4c11fac, type: 3}
+  questionMark: {fileID: 2058614141192969809, guid: 5d7df5409e600234e812d9f86c895f6b, type: 3}
 --- !u!1 &8154648528922738386
 GameObject:
   m_ObjectHideFlags: 0
