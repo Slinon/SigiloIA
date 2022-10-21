@@ -62,7 +62,7 @@ public class AIManager : MonoBehaviour
         foreach (GuardBehaviour guard in guardsInScene)
         {
 
-            // Comprobamos si están en el estado de perseguir
+            // Comprobamos si estï¿½n en el estado de perseguir
             if (guard.state == State.Chase)
             {
 
@@ -234,6 +234,26 @@ public class AIManager : MonoBehaviour
             
             // Alertamos al guardia
             closestGuard.AlertGuard(targetPosition);
+
+        }
+
+    }
+
+
+    public void CientificosHuir()
+    {
+
+        // Buscamos todos los guardias que hay en la escena
+        ScientistBehaviour[] scientists = GameObject.FindObjectsOfType<ScientistBehaviour>();
+
+        // Recorremos los guardias que hay en escena
+        for (int i = 0; i < scientists.Length; i++)
+        {
+
+            // Alarmamos al guardia
+            
+            scientists[i].Huir();
+
 
         }
 

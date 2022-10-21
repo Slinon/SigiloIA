@@ -45,7 +45,10 @@ public class ScientistBehaviour : MonoBehaviour
     private float detectionMeter;
     public float timeSearching;
 
-    private float chaseMeter;                       
+    private float chaseMeter;   
+
+    public GameObject exclamationMark;
+    public GameObject questionMark;                    
 
 
 
@@ -105,6 +108,9 @@ public class ScientistBehaviour : MonoBehaviour
 
     private void Patrol()
     {
+
+        questionMark.SetActive(false);
+        exclamationMark.SetActive(false);
         aIMovement.speed=3f;
         if(Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
@@ -142,6 +148,9 @@ public class ScientistBehaviour : MonoBehaviour
     //Search
     private void LlamarGuardia()
     {
+
+        questionMark.SetActive(true);
+        exclamationMark.SetActive(false);
         aIMovement.speed=5f;
 
 
@@ -188,6 +197,8 @@ public class ScientistBehaviour : MonoBehaviour
     //Chase
     private void PulsarBoton()
     {
+        questionMark.SetActive(false);
+        exclamationMark.SetActive(true);
         currentPointIndex = 0;
         currentPoint = AlarmPoints[currentPointIndex].position;
         aIMovement.speed=10f;
@@ -229,6 +240,7 @@ public class ScientistBehaviour : MonoBehaviour
     //Funciones
     public void Huir()
     {   
+        exclamationMark.SetActive(true);
         huido=true;
         state = State.Chase;
         fieldOfView.meshRenderer.material.color = chaseColor;
