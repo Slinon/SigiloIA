@@ -83,10 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("deactivating alarm: " + alarm);
         Alarm alarmScript = alarm.GetComponent<Alarm>();
-        if(alarmScript.alarmaFuncional)
-        {
-            alarmScript.DesactivarAlarma();
-        }
+        if(alarmScript.)
     }
 
     public void ShowTButtonText(bool value)

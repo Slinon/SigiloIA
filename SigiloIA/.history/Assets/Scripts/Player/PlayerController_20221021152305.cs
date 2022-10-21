@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         Alarm alarmScript = alarm.GetComponent<Alarm>();
         if(alarmScript.alarmaFuncional)
         {
-            alarmScript.DesactivarAlarma();
+            alarmScript.DesactivarAlarma()
         }
     }
 

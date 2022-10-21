@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AIMovement : MonoBehaviour
 {
-    const float MIN_PATH_UPDATE_TIME = 0.2f;            // Constante de tiempo de actualización de camino
+    const float MIN_PATH_UPDATE_TIME = 0.2f;            // Constante de tiempo de actualizaciï¿½n de camino
     const float PATH_UPDATE_MOVE_THRESHOLD = 0.5f;      // Constante de margen de movimiento del target
 
     [HideInInspector]
@@ -15,7 +15,7 @@ public class AIMovement : MonoBehaviour
     public float turnSpeed;                             // Velocidad de rotacion
     public float turnDistance;                          // Distancia de volteado
 
-    private float speed;                                // Velocidad de movimiento
+    public float speed;                                // Velocidad de movimiento
     private Path path;                                  // Camino a seguir
 
     // @IGM -----------------------------------------
