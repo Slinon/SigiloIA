@@ -7,6 +7,8 @@ public class AIManager : MonoBehaviour
 
     public float timeInChase;                                   // Tiempo que deben estar los guardias persiguiendo al jugador
     public LayerMask enemyLayer;                                // Layer de los enemigos
+    public LayerMask cameraLayer;                               // Layer de las camaras de seguridad
+    public LayerMask laserLayer;                                // Layer de los laseres
 
     private float timerInChase;                                 // Tiempo actual si estar dentro del campo de vision de los guardias
     private bool timerStart;                                    // Booleano para indicar que el timer puede empezar
@@ -158,7 +160,7 @@ public class AIManager : MonoBehaviour
     // ------------------------------------------------------------------------------------------
     public void CallGuard(Vector3 originPosition, float communicationRange, Vector3 targetPosition)
     {
-    
+
         //Buscamos todos los enemigos que hay en el rango
         Collider[] enemiesNearby = Physics.OverlapSphere(originPosition, communicationRange, enemyLayer);
 
@@ -173,8 +175,6 @@ public class AIManager : MonoBehaviour
 
         // Escogemos el enemigo mas cercano
         GuardBehaviour closestGuard = enemiesNearby[0].gameObject.GetComponent<GuardBehaviour>();
-
-        Debug.Log(enemiesNearby[0]);
 
         // Comprobamos si tiene el script deseado
         if (closestGuard != null && closestGuard.state != State.Chase)
@@ -261,39 +261,63 @@ public class AIManager : MonoBehaviour
     // @GRG ---------------------------------
     // Cambiar el estado de todas las cámaras
     // --------------------------------------
-    public void CallCamerasAndLasers(Vector3 originPosition, float communicationRange)
+    public void CallCameras(Vector3 originPosition, float communicationRange)
     {
-        Collider[] enemiesNearby = Physics.OverlapSphere(originPosition, communicationRange, enemyLayer);
+
+        Collider[] camerasNearby = Physics.OverlapSphere(originPosition, communicationRange, cameraLayer);
 
         // Comprobamos si ha detectado algun enemigo
-        if (enemiesNearby.Length <= 0)
+        if (camerasNearby.Length <= 0)
         {
             // No hacemos nada
             return;
         }
 
-        foreach (Collider cameraOrLaser in enemiesNearby)
+        foreach (Collider camera in camerasNearby)
         {
-            //Si el enemigo es una camara
-            if (cameraOrLaser.GetComponent<CameraBehaviour>() != null)
+
+            //Si todavia esta en patrol
+            if (camera.GetComponent<CameraBehaviour>().state == State.Patrol)
             {
-                //Si todavia esta en patrol
-                if (cameraOrLaser.GetComponent<CameraBehaviour>().state == State.Patrol)
-                {
-                    //Le cambiamos el estado a search
-                    cameraOrLaser.GetComponent<CameraBehaviour>().ChangeState();
-                }
+
+                //Le cambiamos el estado a search
+                camera.GetComponent<CameraBehaviour>().ChangeState();
+
             }
 
-            else if (cameraOrLaser.GetComponent<LaserBehaviour>() != null)
-            {
-                //Si todavia esta en patrol
-                if (cameraOrLaser.GetComponent<LaserBehaviour>().state == State.Patrol)
-                {
-                    //Le cambiamos el estado a search
-                    cameraOrLaser.GetComponent<LaserBehaviour>().ChangeState();
-                }
-            }
         }
+
     }
+
+    // @IGM ----------------------------------------------
+    // Metodo para cambiar el estado de todos los laseres.
+    // ---------------------------------------------------
+    public void CallLasers(Vector3 originPosition, float communicationRange)
+    {
+
+        Collider[] laserNearby = Physics.OverlapSphere(originPosition, communicationRange, laserLayer);
+
+        // Comprobamos si ha detectado algun enemigo
+        if (laserNearby.Length <= 0)
+        {
+            // No hacemos nada
+            return;
+        }
+
+        foreach (Collider laser in laserNearby)
+        {
+
+            //Si todavia esta en patrol
+            if (laser.GetComponent<LaserBehaviour>().state == State.Patrol)
+            {
+
+                //Le cambiamos el estado a search
+                laser.GetComponent<LaserBehaviour>().ChangeState();
+
+            }
+        
+        }
+
+    }
+
 }

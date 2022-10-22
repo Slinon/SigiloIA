@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 2168240735999606255}
   - component: {fileID: 5580801300775450145}
   - component: {fileID: 1149589970}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: CameraEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   POI: {fileID: 870016843}
   rotationAngle: 180
   rotationSpeed: 20
-  communicationRange: 8
+  communicationRange: 20
   speedMultiplier: 1.5
   rangeMultiplier: 1.5
 --- !u!65 &1149589970

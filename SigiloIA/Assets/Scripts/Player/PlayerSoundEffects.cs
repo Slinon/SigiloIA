@@ -27,7 +27,7 @@ public class PlayerSoundEffects : MonoBehaviour
                 audioSource.pitch = Random.Range(0.8f, 1.1f);
                 audioSource.Play();    
             }
-            
+
             // Detectar qué enemigos están dentro del radio
             DetectEnemiesNearby(transform.position, radius);
         }

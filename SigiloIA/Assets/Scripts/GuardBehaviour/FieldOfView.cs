@@ -77,8 +77,10 @@ public class FieldOfView : MonoBehaviour
     private void Start()
     {
         // Creamos la malla
-        viewMesh = new Mesh();
-        viewMesh.name = "View Mesh";
+        viewMesh = new Mesh
+        {
+            name = "View Mesh"
+        };
 
         // Asignamos la malla al filtro de la malla
         viewMeshFilter.mesh = viewMesh;

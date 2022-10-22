@@ -1900,10 +1900,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5580801300775450145, guid: 0365f3ee6d5c3d641bc19becec07d086, type: 3}
-      propertyPath: communicationRange
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0365f3ee6d5c3d641bc19becec07d086, type: 3}
 --- !u!1001 &86473225
@@ -12861,6 +12857,12 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  cameraLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  laserLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &671665060
 Transform:
   m_ObjectHideFlags: 0

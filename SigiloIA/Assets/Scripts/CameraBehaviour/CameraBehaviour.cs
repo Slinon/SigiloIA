@@ -92,7 +92,7 @@ public class CameraBehaviour : MonoBehaviour
         if (state == State.Search)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
-            AIManager.Instance.CallCamerasAndLasers(transform.position + new Vector3 (0, -5, 0), communicationRange);
+            AIManager.Instance.CallCameras(transform.position + new Vector3 (0, -5, 0), communicationRange);
             AIManager.Instance.CallGuard(transform.position + new Vector3(0, -5, 0), communicationRange, POI.position);
         }
 
