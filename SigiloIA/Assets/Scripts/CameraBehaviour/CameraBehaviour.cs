@@ -13,7 +13,6 @@ public class CameraBehaviour : MonoBehaviour
     public State state;                                    //Estado del enemigo
     [SerializeField] GameObject ripple;                    //Efecto de comunicación con otros NPC
     [SerializeField] Transform POI;                        //Punto de interés al que llamar a los guardias
-    AIManager manager;
     PlayerController player;
 
     [Header("Camera attributes")]
@@ -32,7 +31,6 @@ public class CameraBehaviour : MonoBehaviour
     {
         from = transform.rotation.eulerAngles.y - rotationAngle / 2;
         to = transform.rotation.eulerAngles.y + rotationAngle / 2;
-        manager = FindObjectOfType<AIManager>();
         player = FindObjectOfType<PlayerController>();
 
         //if (from < 0) from = 360 + from;
@@ -94,14 +92,14 @@ public class CameraBehaviour : MonoBehaviour
         if (state == State.Search)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
-            manager.CallCamerasAndLasers(transform.position + new Vector3 (0, -5, 0), communicationRange);
-            manager.CallGuard(transform.position + new Vector3(0, -5, 0), communicationRange, POI.position);
+            AIManager.Instance.CallCamerasAndLasers(transform.position + new Vector3 (0, -5, 0), communicationRange);
+            AIManager.Instance.CallGuard(transform.position + new Vector3(0, -5, 0), communicationRange, POI.position);
         }
 
         if (state == State.Chase)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.red, communicationRange);
-            manager.CallAllGuards(player.transform.position);
+            AIManager.Instance.CallAllGuards(player.transform.position);
         }       
     }
 
