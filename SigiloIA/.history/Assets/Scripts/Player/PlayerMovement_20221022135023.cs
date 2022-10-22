@@ -106,12 +106,11 @@ public class PlayerMovement : MonoBehaviour
         if (sprintAction.IsPressed())
         {
             speed = playerSprint;
-            PlayerSoundEffects.instance.isRunning = true;
+            PlayerSoundEffects.instance.isRunning = false;
         }
         else
         {
             speed = playerSpeed;
-            PlayerSoundEffects.instance.isRunning = false;
         }
 
         // Obtiene la direcci�n de movimiento dada por el Input del jugador (WASD) horizaontal/vertical
