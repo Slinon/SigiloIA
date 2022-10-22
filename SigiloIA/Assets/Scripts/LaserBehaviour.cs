@@ -13,7 +13,6 @@ public class LaserBehaviour : MonoBehaviour
     public State state;                                    //Estado del enemigo
     [SerializeField] GameObject ripple;                    //Efecto de comunicación con otros NPC
     [SerializeField] BoxCollider col;                      //Collider del objeto
-    AIManager manager;
     PlayerController player;
 
     [Header("Laser attributes")]
@@ -34,7 +33,6 @@ public class LaserBehaviour : MonoBehaviour
     private void Start()
     {
         timer = onOffSpeed;
-        manager = FindObjectOfType<AIManager>();
         player = FindObjectOfType<PlayerController>();
     }
     // Update is called once per frame
@@ -108,14 +106,14 @@ public class LaserBehaviour : MonoBehaviour
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
             Debug.Log("Calling cameras and lasers");
-            manager.CallCamerasAndLasers(transform.position, communicationRange);
-            manager.CallGuard(transform.position, communicationRange, transform.position);
+            AIManager.Instance.CallCamerasAndLasers(transform.position, communicationRange);
+            AIManager.Instance.CallGuard(transform.position, communicationRange, transform.position);
         }
 
         if (state == State.Chase)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.red, communicationRange);
-            manager.CallAllGuards(player.transform.position);
+            AIManager.Instance.CallAllGuards(player.transform.position);
             col.enabled = false;
         }
 
