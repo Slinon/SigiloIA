@@ -183,10 +183,10 @@ public class AIManager : MonoBehaviour
             // Alertamos al guardia
             closestGuard.AlertGuard(targetPosition);
 
-        }
+            // Llamamos al guardia mas cercano para que ayude a este guardia
+            CallNearestGuard(closestGuard.transform.position, targetPosition);
 
-        // Llamamos al guardia mas cercano para que ayude a este guardia
-        CallNearestGuard(closestGuard.transform.position, targetPosition);
+        }
 
     }
 
