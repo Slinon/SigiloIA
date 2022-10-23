@@ -10,10 +10,12 @@ public class RippleEffect : MonoBehaviour
     // --------------------------------
 
     private ParticleSystem ripple;                  //Efecto de comunicación con otros NPC
+    private AudioSource alarmSFX;                   //Efecto de sonido
 
     private void Start()
     {
         ripple = gameObject.GetComponent<ParticleSystem>();
+        alarmSFX = gameObject.GetComponent<AudioSource>();
     }
 
 
@@ -29,6 +31,7 @@ public class RippleEffect : MonoBehaviour
         main.startColor = rippleColor;              //Ajustar color
 
         ripple.Play();
+        alarmSFX.Play();
     }
 
 }
