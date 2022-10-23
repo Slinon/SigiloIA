@@ -80,9 +80,6 @@ public class PlayerMovement : MonoBehaviour
                 playerController.DeactivateAlarm(closestAlarm);
             }
         }
-        else{
-            playerController.ShowAlarmText(false);
-        }
 
         
         if (moveAction.IsPressed())

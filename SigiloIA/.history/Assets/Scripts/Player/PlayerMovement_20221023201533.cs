@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else{
-            playerController.ShowAlarmText(false);
+            
         }
 
         

@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             playerController.ShowTButtonText(false);
         }
 
-        // Alarm
+        
         GameObject closestAlarm = playerController.CheckClosestAlarm();
         if(closestAlarm != null)
         {
@@ -79,9 +79,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerController.DeactivateAlarm(closestAlarm);
             }
-        }
-        else{
-            playerController.ShowAlarmText(false);
         }
 
         

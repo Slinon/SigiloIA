@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction; // Acci�n de moverse
     private InputAction sprintAction; // Acci�n de correr
     private InputAction transformAction; // Acci�n de transformarse
-    private InputAction alarmAction;
+    private InputAction a
 
     private void Awake()
     {
@@ -69,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
             playerController.ShowTButtonText(false);
         }
 
-        // Alarm
         GameObject closestAlarm = playerController.CheckClosestAlarm();
         if(closestAlarm != null)
         {
@@ -79,9 +78,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerController.DeactivateAlarm(closestAlarm);
             }
-        }
-        else{
-            playerController.ShowAlarmText(false);
         }
 
         

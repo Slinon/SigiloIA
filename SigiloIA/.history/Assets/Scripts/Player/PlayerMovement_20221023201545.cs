@@ -81,8 +81,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else{
-            playerController.ShowAlarmText(false);
-        }
+            playerController.ShowAlarmText(false)        }
 
         
         if (moveAction.IsPressed())

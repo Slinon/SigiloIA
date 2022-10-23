@@ -40703,8 +40703,8 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2091071584}
-    - target: {fileID: 660802467751553370, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
-      propertyPath: alarmaFuncional
+    - target: {fileID: 1603548299106292527, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3719409278636218444, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
@@ -40754,6 +40754,18 @@ PrefabInstance:
     - target: {fileID: 3893872026875170165, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
       propertyPath: m_Name
       value: Alarm  (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214002906089473756, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4553914165901349806, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732219057290514538, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 610a62814fe5d7d4684c0d8f6aefa414, type: 3}
