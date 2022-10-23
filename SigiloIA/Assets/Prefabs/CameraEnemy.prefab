@@ -312,6 +312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spotlight
       objectReference: {fileID: 0}
+    - target: {fileID: 2336061550593274278, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3107636810860145436, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: m_RootOrder
       value: 0
