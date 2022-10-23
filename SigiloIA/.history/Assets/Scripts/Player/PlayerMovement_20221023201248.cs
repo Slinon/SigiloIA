@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction; // Acci�n de moverse
     private InputAction sprintAction; // Acci�n de correr
     private InputAction transformAction; // Acci�n de transformarse
-    private InputAction alarmAction;
 
     private void Awake()
     {
@@ -48,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         moveAction = playerInput.actions["Move"]; // Extrae la acci�n de moverse del InputSystem del jugador (Move)
         sprintAction = playerInput.actions["Sprint"]; // Extrae la acci�n de correr del InputSystem del jugador (Sprint)
         transformAction = playerInput.actions["Transform"]; // Extrae la acci�n de transformarse del InputSystem del jugador (Transform)
-        alarmAction = playerInput.actions["Alarm"];
+        
 
         //Cursor.lockState = CursorLockMode.Locked; // Oculta y bloquea el cursor en el centro de la pantalla
     }
@@ -69,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
             playerController.ShowTButtonText(false);
         }
 
-        // Alarm
         GameObject closestAlarm = playerController.CheckClosestAlarm();
         if(closestAlarm != null)
         {
@@ -79,9 +77,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerController.DeactivateAlarm(closestAlarm);
             }
-        }
-        else{
-            playerController.ShowAlarmText(false);
         }
 
         
