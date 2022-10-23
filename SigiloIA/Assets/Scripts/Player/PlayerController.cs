@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     public void TransformPlayer()
     {
         SetActiveFalseAllChildren();
-        player.transform.GetChild(0).gameObject.SetActive(true);
+        player.transform.GetChild(1).gameObject.SetActive(true);
         player.gameObject.tag = "Player";
         player.gameObject.layer = 7;
     }
@@ -63,16 +63,9 @@ public class PlayerController : MonoBehaviour
 
         if (CheckClosestObject() == "pot")
         {
-            player.transform.GetChild(1).gameObject.SetActive(true);
-        }
-        if (CheckClosestObject() == "Stick")
-        {
             player.transform.GetChild(2).gameObject.SetActive(true);
         }
-        if (CheckClosestObject() == "Ball")
-        {
-            player.transform.GetChild(3).gameObject.SetActive(true);
-        }
+        // Add transform objects here //
 
         player.gameObject.tag = "Point";
         player.gameObject.layer = 6;
@@ -93,7 +86,8 @@ public class PlayerController : MonoBehaviour
         T_Text.enabled = value;
     }
 
-    public void ShowAlarmText(bool value){
+    public void ShowAlarmText(bool value)
+    {
         E_Text.enabled = value;
     }
 }
