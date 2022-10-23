@@ -179,8 +179,8 @@ public class GuardBehaviour : MonoBehaviour
         // Comprobamos si el guardia ha pillado al jugador
         if (Vector3.Distance(transform.position, currentPoint) < stoppingDistance)
         {
-
-            Debug.Log("GAME OVER!!");
+            //@GRG cambiamos el estado del manager del estado de juego
+            GameStateManager.Instance.currentState = GameState.GameOver;
 
         }
 
