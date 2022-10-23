@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         SetActiveFalseAllChildren();
 
-        if (CheckClosestObject() == "Box")
+        if (CheckClosestObject() == "pot")
         {
             player.transform.GetChild(1).gameObject.SetActive(true);
         }
