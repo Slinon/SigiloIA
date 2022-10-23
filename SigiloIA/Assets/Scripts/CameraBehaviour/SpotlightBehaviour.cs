@@ -74,6 +74,8 @@ public class SpotlightBehaviour : MonoBehaviour
         {
             //Resetear la barra
             detectionMeter = 0;
+
+            timeToSpot /= 2;
             
             //LLamar a PlayerSpotted
             enemyParent.GetComponent<CameraBehaviour>().PlayerSpotted();

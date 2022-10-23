@@ -172,9 +172,9 @@ MonoBehaviour:
   state: 0
   ripple: {fileID: 5648664543430667321}
   POI: {fileID: 870016843}
-  rotationAngle: 180
-  rotationSpeed: 20
-  communicationRange: 20
+  rotationAngle: 120
+  rotationSpeed: 30
+  communicationRange: 10
   speedMultiplier: 1.5
   rangeMultiplier: 1.5
 --- !u!65 &1149589970
@@ -380,6 +380,18 @@ PrefabInstance:
       propertyPath: enemyParent
       value: 
       objectReference: {fileID: 2168240735999606254}
+    - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
+      propertyPath: chaseColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
+      propertyPath: patrolColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
+      propertyPath: searchColor.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4281700495386529908, guid: ea0ffb31882e423409b8e4f2452dd530, type: 3}
       propertyPath: timeToSpotReduction
       value: 0.5
