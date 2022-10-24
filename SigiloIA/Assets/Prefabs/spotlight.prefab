@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2336061550593274278}
   m_LocalRotation: {x: 0.15304585, y: -0.6903456, z: -0.15304585, w: 0.6903456}
   m_LocalPosition: {x: 0, y: -0.5, z: -0.3}
-  m_LocalScale: {x: 2, y: 3.5, z: 2}
+  m_LocalScale: {x: 3, y: 3.5, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -112,8 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyParent: {fileID: 0}
-  timeToSpot: 2
-  detectionMeter: 0
-  patrolColor: {r: 1, g: 1, b: 1, a: 0.39215687}
-  searchColor: {r: 1, g: 1, b: 0, a: 0.39215687}
-  chaseColor: {r: 1, g: 0, b: 0, a: 0.39215687}
+  timeToSpot: 1
+  patrolColor: {r: 1, g: 1, b: 1, a: 0.78431374}
+  searchColor: {r: 1, g: 1, b: 0, a: 0.78431374}
+  chaseColor: {r: 1, g: 0, b: 0, a: 0.78431374}

@@ -107,6 +107,7 @@ public class LaserBehaviour : MonoBehaviour
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
             Debug.Log("Calling cameras and lasers");
             AIManager.Instance.CallLasers(transform.position, communicationRange);
+            AIManager.Instance.CallCameras(transform.position + new Vector3(0, 4, 0), communicationRange);
             AIManager.Instance.CallGuard(transform.position, communicationRange, transform.position);
         }
 

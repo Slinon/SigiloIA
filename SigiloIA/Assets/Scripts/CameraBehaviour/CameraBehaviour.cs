@@ -14,6 +14,7 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] GameObject ripple;                    //Efecto de comunicación con otros NPC
     [SerializeField] Transform POI;                        //Punto de interés al que llamar a los guardias
     PlayerController player;
+    [SerializeField] SpotlightBehaviour thisCameraSpotlight;
 
     [Header("Camera attributes")]
     [SerializeField] private float rotationAngle;           //Barrido de la cámara (en grados)
@@ -92,8 +93,9 @@ public class CameraBehaviour : MonoBehaviour
         if (state == State.Search)
         {
             ripple.GetComponent<RippleEffect>().PlayRipple(Color.yellow, communicationRange);
-            AIManager.Instance.CallCameras(transform.position + new Vector3 (0, -5, 0), communicationRange);
-            AIManager.Instance.CallGuard(transform.position + new Vector3(0, -5, 0), communicationRange, POI.position);
+            AIManager.Instance.CallCameras(transform.position, communicationRange);
+            AIManager.Instance.CallLasers(transform.position + new Vector3(0, -4, 0), communicationRange);
+            AIManager.Instance.CallGuard(transform.position + new Vector3(0, -4, 0), communicationRange, POI.position);
         }
 
         if (state == State.Chase)
@@ -108,6 +110,7 @@ public class CameraBehaviour : MonoBehaviour
         state += 1;
         rotationSpeed *= speedMultiplier;
         communicationRange *= rangeMultiplier;
+        thisCameraSpotlight.GetComponent<SpotlightBehaviour>().timeToSpot /= 2;
     }
 
     // @GRG ---------------------------

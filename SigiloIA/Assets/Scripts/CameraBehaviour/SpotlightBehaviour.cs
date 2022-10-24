@@ -15,7 +15,7 @@ public class SpotlightBehaviour : MonoBehaviour
 
     [Header("Spotlight attributes")]
     public float timeToSpot = 2f;                           //tiempo que tarda en detectar al jugador
-    public float detectionMeter = 0;                       //"Barra" de detección
+    private float detectionMeter = 0;                       //"Barra" de detección
 
     [Header("State colors")]
     [SerializeField] private Color patrolColor;             //Color cuando el enemigo está patrullando
@@ -74,8 +74,6 @@ public class SpotlightBehaviour : MonoBehaviour
         {
             //Resetear la barra
             detectionMeter = 0;
-
-            timeToSpot /= 2;
             
             //LLamar a PlayerSpotted
             enemyParent.GetComponent<CameraBehaviour>().PlayerSpotted();

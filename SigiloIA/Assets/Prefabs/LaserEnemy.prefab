@@ -50,7 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42ff6b3bed5c5143b873d2518d390be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
+  description: "Cada (OnOffSpeed) segundos, los l\xE1seres activar\xE1n/apagar\xE1n
+    un collider. Si el jugador colisiona con ese collider, ser\xE1 detectado y se
+    avisar\xE1 a los dem\xE1s enemigos en rango (CommunicationRange)"
   state: 0
   ripple: {fileID: 3010317645411330221}
   col: {fileID: 7544776230352975538}
@@ -58,9 +60,9 @@ MonoBehaviour:
   onOffSpeed: 3
   onOffReduction: 0.5
   rangeMultiplier: 1.5
-  patrolColor: {r: 1, g: 1, b: 1, a: 1}
-  searchColor: {r: 1, g: 1, b: 0, a: 1}
-  chaseColor: {r: 1, g: 0, b: 0, a: 1}
+  patrolColor: {r: 1, g: 1, b: 1, a: 0.78431374}
+  searchColor: {r: 1, g: 1, b: 0, a: 0.78431374}
+  chaseColor: {r: 1, g: 0, b: 0, a: 0.78431374}
   lasers:
   - {fileID: 5351724133236493864}
   - {fileID: 3845941206891792364}
