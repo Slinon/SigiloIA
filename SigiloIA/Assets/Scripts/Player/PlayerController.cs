@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     public void TransformPlayer()
     {
         SetActiveFalseAllChildren();
-        player.transform.GetChild(2).gameObject.SetActive(true); // Modelo actual
+        player.transform.GetChild(3).gameObject.SetActive(true); // Modelo actual
         player.gameObject.tag = "Player";
         player.gameObject.layer = 7;
     }
@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour
         if (CheckClosestObject() == "pot")
         {
             player.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        if(CheckClosestObject() == "silla")
+        {
+            player.transform.GetChild(1).gameObject.SetActive(true);
         }
         // Add transform objects here //
 

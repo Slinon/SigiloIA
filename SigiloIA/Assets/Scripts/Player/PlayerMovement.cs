@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public CinemachineVirtualCamera RTSCamera;
 
     private Transform playerTransform;
+    private Animator anim;
 
     private bool lockedCam = true;
 
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         playerTransform = GetComponent<Transform>();
+        anim = GetComponentInChildren<Animator>();
 
         playerController = GetComponent<PlayerController>();
 
@@ -84,15 +86,18 @@ public class PlayerMovement : MonoBehaviour
             playerController.ShowAlarmText(false);
         }
 
-        
+        anim.SetBool("isWalking", false);
+
         if (moveAction.IsPressed())
         {
             playerController.TransformPlayer();
             MovePlayer();
+            
         }
         else 
         {
-            PlayerSoundEffects.instance.isRunning = false;
+            //PlayerSoundEffects.instance.isRunning = false;
+            
         }
 
         if (Input.GetMouseButtonDown(0)) // Left click
@@ -120,6 +125,8 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
+        anim.SetBool("isWalking", true);
+
         // Comprueba si est� corriendo para asignar la velocidad correspondiente
         if (sprintAction.IsPressed())
         {

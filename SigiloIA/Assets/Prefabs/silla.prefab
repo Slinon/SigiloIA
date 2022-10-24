@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5131282581560074703}
   - component: {fileID: 8113834819290836586}
   - component: {fileID: 6304712436156357280}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: silla
-  m_TagString: Untagged
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
