@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class PlayerController : MonoBehaviour
     public float closeDistance = 5f;
     public float closeAlarmDistance = 1f;
 
-    public Text T_Text;
-    public Text E_Text;
+    public TextMeshProUGUI T_Text;
+    public TextMeshProUGUI E_Text;
 
     public string CheckClosestObject()
     {

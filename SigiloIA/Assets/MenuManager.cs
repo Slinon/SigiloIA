@@ -15,4 +15,11 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void ReloadScene()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+
+        SceneManager.LoadScene(scene.name);
+    }
+
 }
