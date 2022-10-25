@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { Play, GameOver}
+public enum GameState { Play, GameOver, Victory}
 
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
     public GameState currentState;
     public GameObject GameOverPanel;
+    public GameObject VictoryPanel;
 
     private void Awake()
     {
@@ -34,6 +35,11 @@ public class GameStateManager : MonoBehaviour
         if (currentState == GameState.GameOver)
         {
             GameOverPanel.SetActive(true);
+        }
+
+        if (currentState == GameState.Victory)
+        {
+            VictoryPanel.SetActive(true);
         }
     }
 }
