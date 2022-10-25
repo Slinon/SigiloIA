@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
 
     private bool lockedCam = true;
+    private bool isMoving;
 
     [SerializeField]
     private float playerSpeed = 5f; // Valor de velocidad movimiento del jugador
@@ -82,22 +83,25 @@ public class PlayerMovement : MonoBehaviour
                 playerController.DeactivateAlarm(closestAlarm);
             }
         }
-        else{
+        else
+        {
             playerController.ShowAlarmText(false);
         }
-
-        anim.SetBool("isWalking", false);
 
         if (moveAction.IsPressed())
         {
             playerController.TransformPlayer();
             MovePlayer();
-            
+            isMoving = true;
         }
         else 
         {
-            //PlayerSoundEffects.instance.isRunning = false;
+            PlayerSoundEffects.instance.isRunning = false;
             
+        }
+        if (moveAction.WasReleasedThisFrame())
+        {
+            isMoving = false;
         }
 
         if (Input.GetMouseButtonDown(0)) // Left click
@@ -117,6 +121,8 @@ public class PlayerMovement : MonoBehaviour
                 RTSCamera.gameObject.SetActive(true);
             }
         }
+        anim.SetBool("isWalking", isMoving);
+        Debug.Log(anim.GetBool("isWalking"));
     }
 
     // @EMF -----------------------
@@ -125,8 +131,6 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        anim.SetBool("isWalking", true);
-
         // Comprueba si est� corriendo para asignar la velocidad correspondiente
         if (sprintAction.IsPressed())
         {
