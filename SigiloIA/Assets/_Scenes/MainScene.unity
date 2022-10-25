@@ -4380,18 +4380,20 @@ MonoBehaviour:
 
 
 
-    f1 turn off enemies
+    f1 / G turn on/off enemies
 
-    f2 calm enemies
+    f2 / H calm enemies
 
-    f3 give
-    keys
+    f3
+    / J give keys
 
-    f4 win game
+    f4 / K win game
+
+    f5 / L turn on/off PostProcessing
 
 
-
-    Return to close'
+    Return
+    to close'
 --- !u!222 &157607427
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7078,7 +7080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &227130423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22001,6 +22003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugCheatSheet: {fileID: 173179928}
   enemies: {fileID: 895941054}
+  pprocessing: {fileID: 1632357389}
 --- !u!4 &672234757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4578525712162419218, guid: 4a15e30e5999d2649a06f58510fb20c6, type: 3}
@@ -55926,7 +55929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1632357390
 MonoBehaviour:
   m_ObjectHideFlags: 0

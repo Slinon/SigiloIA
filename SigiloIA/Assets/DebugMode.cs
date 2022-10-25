@@ -7,6 +7,7 @@ public class DebugMode : MonoBehaviour
     private bool _debug = false;
     public GameObject debugCheatSheet;
     public GameObject enemies;
+    public GameObject pprocessing;
     KeyManager keys;
 
     private void Start()
@@ -26,7 +27,7 @@ public class DebugMode : MonoBehaviour
         {
             debugCheatSheet.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.F1))
+            if (Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.G))
             {
                 if (enemies.activeSelf)
                 {
@@ -35,7 +36,7 @@ public class DebugMode : MonoBehaviour
                 else enemies.SetActive(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.F2))
+            if (Input.GetKeyDown(KeyCode.F2) || Input.GetKeyDown(KeyCode.H))
             {
                 GuardBehaviour[] guards = FindObjectsOfType<GuardBehaviour>();
                 ScientistBehaviour[] scientists = FindObjectsOfType<ScientistBehaviour>();
@@ -63,16 +64,25 @@ public class DebugMode : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.F3))
+            if (Input.GetKeyDown(KeyCode.F3) || Input.GetKeyDown(KeyCode.J))
             {
                 keys.hasRedKey = true;
                 keys.hasGreenKey = true;
                 keys.hasBlueKey = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.F4))
+            if (Input.GetKeyDown(KeyCode.F4) || Input.GetKeyDown(KeyCode.K))
             {
                 GameStateManager.Instance.currentState = GameState.Victory;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F5) || Input.GetKeyDown(KeyCode.L))
+            {
+                if (pprocessing.activeSelf)
+                {
+                    pprocessing.SetActive(false);
+                }
+                else pprocessing.SetActive(true);
             }
         }
 
