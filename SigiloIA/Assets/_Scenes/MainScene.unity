@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: fcf84e07823482e478e25329451fe8dc, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -4377,18 +4377,18 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Debug mode:
 
-    
+
 
     f1 turn off enemies
 
     f2 calm enemies
 
-    f3
-    give keys
+    f3 give
+    keys
 
     f4 win game
 
-    
+
 
     Return to close'
 --- !u!222 &157607427
@@ -6743,7 +6743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3489826888426188635, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
       propertyPath: doorColor
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
@@ -22745,7 +22745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3489826888426188635, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
       propertyPath: doorColor
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
@@ -54880,7 +54880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3489826888426188635, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
       propertyPath: doorColor
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
@@ -73361,6 +73361,10 @@ PrefabInstance:
     - target: {fileID: 3489826888426188634, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3489826888426188635, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
+      propertyPath: doorColor
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cd7fbd88616543418fe2021f3adb0da, type: 3}
